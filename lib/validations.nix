@@ -10,13 +10,13 @@
   # Example usage: validateHostname "my-hostname"
   validateHostname = hostname:
     let
-      hostAvailable = lib.elem hostname lib.myLib.hosts.available;
-      configPath = "${lib.myLib.hosts.path}/${hostname}/configuration.nix";
+      hostAvailable = lib.elem hostname lib.myLib.hosts.availableHosts;
+      configPath = "${lib.myLib.hosts.hostsPath}/${hostname}/configuration.nix";
       configExists = builtins.pathExists configPath;
     in if !hostAvailable then
       throw
       "Hostname '${hostname}' is not available in hosts module. Available hostnames: ${
-        lib.concatStringsSep ", " lib.myLib.hosts.available
+        lib.concatStringsSep ", " lib.myLib.hosts.availableHosts
       }"
     else if !configExists then
       throw
@@ -31,11 +31,11 @@
   validatePackageProfiles = profiles:
     let
       # Get the list of available profiles from the library
-      availableProfiles = lib.myLib.profiles.packages.available;
+      availableProfiles = lib.myLib.profiles.packages.availablePackageProfiles;
       # Helper function to check if a profile exists
       profileExists = profile:
         builtins.pathExists ''
-          ${lib.myLib.profiles.packages.path}/${profile}.nix
+          ${lib.myLib.profiles.packages.packagesProfilesPath}/${profile}.nix
         '';
       # Filter out invalid profiles
       invalidProfiles =

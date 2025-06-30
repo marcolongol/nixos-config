@@ -14,25 +14,26 @@ let
 
   hostsPath = ../hosts;
   hosts = {
-    path = hostsPath;
-    available = utils.discoverFolders hostsPath;
+    hostsPath = hostsPath;
+    availableHosts = utils.discoverFolders hostsPath;
   };
 
   usersPath = ../users;
   users = {
-    path = usersPath;
-    available = utils.discoverFolders usersPath;
+    usersPath = usersPath;
+    availableUsers = utils.discoverFolders usersPath;
   };
 
   profilesPath = ../profiles;
   profiles = {
     user = {
-      path = "${profilesPath}/user";
-      available = utils.discoverNixFiles "${profilesPath}/user";
+      userProfilesPath = "${profilesPath}/user";
+      availableUserProfiles = utils.discoverNixFiles "${profilesPath}/user";
     };
     packages = {
-      path = "${profilesPath}/packages";
-      available = utils.discoverNixFiles "${profilesPath}/packages";
+      packageProfilesPath = "${profilesPath}/packages";
+      availablePackageProfiles =
+        utils.discoverNixFiles "${profilesPath}/packages";
     };
   };
 

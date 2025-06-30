@@ -63,8 +63,8 @@
       pkgs = lib.myLib.utils.mkPkgsWithSystem system;
       specialArgs = { inherit inputs hostname; };
       modules = [
-        (lib.myLib.hosts.path + "/${hostname}/configuration.nix")
-        (lib.myLib.profiles.packages.path)
+        (lib.myLib.hosts.hostsPath + "/${hostname}/configuration.nix")
+        (lib.myLib.profiles.packages.packageProfilesPath)
         # TODO:
         # (lib.myLib.users.path)
         { packageProfiles.enable = profiles; }
