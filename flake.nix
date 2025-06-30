@@ -47,10 +47,10 @@
         nixosConfigurations = {
           nixos-wsl = lib.utils.mkSystem {
             hostname = "nixos-wsl";
-            profiles = [ ];
+            profiles = [ "development" "security" ];
             users = [{
               name = "lucas";
-              profiles = [ "base" ];
+              profiles = [ "admin" "developer" ];
               extraGroups = [ "wheel" ];
             }];
             extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];
