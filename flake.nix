@@ -8,6 +8,13 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
+    # home-manager - home user modules
+    # https://github.com/nix-community/home-manager
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     mission-control.url = "github:Platonic-Systems/mission-control";
     flake-root.url = "github:srid/flake-root";
 
@@ -43,7 +50,7 @@
             profiles = [ ];
             users = [{
               name = "lucas";
-              profiles = [ "admin" ];
+              profiles = [ "base" ];
               extraGroups = [ "wheel" ];
             }];
             extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];

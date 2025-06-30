@@ -56,6 +56,7 @@
     assert !enableValidation || lib.myLib.validations.validateHostname hostname;
     assert !enableValidation
       || lib.myLib.validations.validatePackageProfiles profiles;
+    assert !enableValidation || lib.myLib.validations.validateUsers users;
 
     # Returns a NixOS system configuration
     lib.nixosSystem {
@@ -65,9 +66,12 @@
       modules = [
         (lib.myLib.hosts.hostsPath + "/${hostname}/configuration.nix")
         (lib.myLib.profiles.packages.packageProfilesPath)
-        # TODO:
-        # (lib.myLib.users.path)
-        { packageProfiles.enable = profiles; }
+        inputs.home-manager.nixosModules.home-manager
+        (lib.myLib.users.usersPath)
+        {
+          packageProfiles.enable = profiles;
+          myUsers.enable = users;
+        }
       ] ++ extraModules;
     };
 
