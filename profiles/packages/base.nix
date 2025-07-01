@@ -4,6 +4,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
+
   environment.systemPackages = with pkgs; [
     # Essential CLI tools
     wget

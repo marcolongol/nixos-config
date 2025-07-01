@@ -1,6 +1,11 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, userConfig, ... }:
 
 {
+
+  # Base user profile for all users
+  home.username = lib.mkDefault userConfig.name;
+  home.homeDirectory = lib.mkDefault "/home/${userConfig.name}";
+
   # Home directory management
   home.stateVersion = "24.11";
 
@@ -13,6 +18,8 @@
     file
     unzip
   ];
+
+  programs.home-manager.enable = lib.mkDefault true;
 
   # Basic shell configuration
   programs.zsh = {
