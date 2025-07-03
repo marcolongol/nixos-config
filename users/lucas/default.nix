@@ -1,7 +1,7 @@
 # Lucas's Individual User Configuration
 # This file contains custom configurations specific to Lucas
 # It extends the base developer profile with personal preferences
-{ pkgs, lib, ... }: {
+{ pkgs, lib, userConfig ? null, ... }: {
   # Import additional configuration modules
   imports = [ ./config ];
 
@@ -32,8 +32,11 @@
     "personal/.keep".text = "";
   };
 
+  programs.home-manager = { enable = true; };
+
   # Personal git configuration
   programs.git = {
+    enable = true;
     userName = "Lucas Marcolongo";
     userEmail = "lucas_marco@live.com";
     extraConfig = {

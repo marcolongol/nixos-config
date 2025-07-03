@@ -56,6 +56,14 @@
             extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];
           };
         };
+        homeConfigurations = {
+          lucas = lib.utils.mkHome {
+            user = {
+              name = "lucas";
+              profiles = [ "admin" "developer" ];
+            };
+          };
+        };
       };
     };
 }

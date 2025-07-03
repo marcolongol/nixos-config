@@ -75,4 +75,33 @@
       ] ++ extraModules;
     };
 
+    mkHome = { user, system ? "x86_64-linux", extraModules ? [ ] }:
+      inputs.home-manager.lib.homeManagerConfiguration {
+        inherit lib;
+        pkgs = lib.myLib.utils.mkPkgsWithSystem system;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          # Import base profile (always included)
+          (import (lib.myLib.profiles.user.userProfilesPath + "/base.nix") {
+            inherit lib;
+            pkgs = lib.myLib.utils.mkPkgsWithSystem system;
+            userConfig = user;
+          })
+          
+          # Import additional user profiles
+        ] ++ (map (profile:
+          if profile != "base" then
+            import (lib.myLib.profiles.user.userProfilesPath + "/${profile}.nix") {
+              inherit lib;
+              pkgs = lib.myLib.utils.mkPkgsWithSystem system;
+              userConfig = user;
+            }
+          else
+            { }) user.profiles) ++ [
+          
+          # Import individual user configuration
+          (lib.myLib.users.usersPath + "/${user.name}")
+        ] ++ extraModules;
+      };
+
 }
