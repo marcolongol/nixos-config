@@ -55,6 +55,16 @@
             }];
             extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];
           };
+          nixos-lt = lib.utils.mkSystem {
+            hostname = "nixos-lt";
+            profiles = [ "desktop" "development" "security" ];
+            users = [{
+              name = "lucas";
+              profiles = [ "admin" "developer" ];
+              extraGroups = [ "wheel" "docker" ];
+            }];
+            extraModules = [ ./modules/nvidia ];
+          };
         };
         homeConfigurations = {
           lucas = lib.utils.mkHome {
