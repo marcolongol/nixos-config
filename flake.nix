@@ -51,7 +51,7 @@
             users = [{
               name = "lucas";
               profiles = [ "admin" "developer" ];
-              extraGroups = [ "wheel" ];
+              extraGroups = [ "wheel" "docker" ];
             }];
             extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];
           };

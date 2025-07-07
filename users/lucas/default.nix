@@ -5,9 +5,6 @@
   # Import additional configuration modules
   imports = [ ./config ];
 
-  # Disable nixpkgs version mismatch warnings
-  home.enableNixpkgsReleaseCheck = false;
-
   home.packages = with pkgs; [
     # Personal productivity tools
     obsidian
