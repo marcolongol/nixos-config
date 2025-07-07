@@ -48,7 +48,6 @@
   };
 
   # Audio System
-  sound.enable = lib.mkDefault true;
   security.rtkit.enable = lib.mkDefault true;
   services.pipewire = {
     enable = lib.mkDefault true;
@@ -63,11 +62,7 @@
       enable = lib.mkDefault true;
       powerOnBoot = lib.mkDefault true;
     };
-    opengl = {
-      enable = lib.mkDefault true;
-      driSupport = lib.mkDefault true;
-      driSupport32Bit = lib.mkDefault true;
-    };
+    graphics = { enable = lib.mkDefault true; };
   };
 
   # Fonts
