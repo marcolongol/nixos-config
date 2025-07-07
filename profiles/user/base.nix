@@ -7,7 +7,7 @@
   home.homeDirectory = lib.mkDefault "/home/${userConfig.name}";
 
   # Home directory management
-  home.stateVersion = "25.11";
+  home.stateVersion = "25.05";
 
   # Essential packages for all users
   home.packages = with pkgs; [
