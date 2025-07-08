@@ -21,6 +21,13 @@
     # https://github.com/nix-community/impermanence
     impermanence = { url = "github:nix-community/impermanence"; };
 
+    # disko - Declarative disk partitioning
+    # https://github.com/nix-community/disko
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nixvim - Neovim configuration framework
     # https://github.com/nix-community/nixvim
     nixvim = {

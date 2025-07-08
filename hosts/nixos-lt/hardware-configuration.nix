@@ -4,27 +4,63 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix") ./disko-config.nix ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/a740200d-6a8e-4f77-b954-49f750ab50d6";
-    fsType = "ext4";
+  # Boot configuration
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    initrd = {
+      availableKernelModules =
+        [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7BF5-0D40";
-    fsType = "vfat";
-    options = [ "fmask=0022" "dmask=0022" ];
+  # NVIDIA Graphics Configuration
+  # GeForce RTX 4060 Max-Q with Intel UHD Graphics 770 hybrid setup
+  hardware.nvidia-custom = {
+    enable = true;
+
+    # Hybrid graphics configuration (Intel + NVIDIA)
+    hybrid = {
+      enable = true;
+      mode =
+        "offload"; # Use Intel by default, NVIDIA on demand for better battery life
+      busId = {
+        intel = "PCI:0:2:0"; # Intel Alder Lake-HX GT1 [UHD Graphics 770]
+        nvidia = "PCI:1:0:0"; # NVIDIA GeForce RTX 4060 Max-Q / Mobile
+      };
+    };
+
+    # Power management for laptop (RTX 40 series supports fine-grained)
+    powerManagement = {
+      enable = true;
+      finegrained = true; # RTX 4060 supports fine-grained power management
+    };
+
+    # Additional features
+    enableCUDA = false; # Set to true if you need CUDA for ML/compute workloads
+    enableVulkan = true; # Enable for gaming and modern graphics applications
+
+    # Settings
+    settings = {
+      modesetting = true;
+      useGBM = true; # Better Wayland support
+      forceCompositionPipeline =
+        false; # Enable if you experience screen tearing
+    };
   };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/65a76fb7-c7f6-4aaf-8209-2844b29b831c"; }];
+  # Additional hardware optimizations for this specific laptop
+  # Intel CPU optimizations
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   networking.useDHCP = lib.mkDefault true;
 }

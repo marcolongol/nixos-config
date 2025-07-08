@@ -64,9 +64,11 @@
       pkgs = lib.myLib.utils.mkPkgsWithSystem system;
       specialArgs = { inherit inputs hostname; };
       modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.disko.nixosModules.disko
+        inputs.impermanence.nixosModules.impermanence
         (lib.myLib.hosts.hostsPath + "/${hostname}/configuration.nix")
         (lib.myLib.profiles.packages.packageProfilesPath)
-        inputs.home-manager.nixosModules.home-manager
         (lib.myLib.users.usersPath)
         {
           packageProfiles.enable = profiles;

@@ -29,6 +29,22 @@
     # These will be created by the user profiles or individual user configs
   ];
 
+  # System-level impermanence configuration
+  # Only persists essential system files and directories
+  # User-specific files are handled by home-manager impermanence
+  environment.persistence."/persist" = {
+    hideMounts = true;
+    directories = [
+      "/var/log"
+      "/var/lib/bluetooth"
+      "/var/lib/nixos"
+      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections"
+      "/etc/ssh"
+    ];
+    files = [ "/etc/machine-id" ];
+  };
+
   environment.systemPackages = with pkgs; [
     # Essential CLI tools
     wget
