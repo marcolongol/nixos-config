@@ -6,6 +6,19 @@
 {
   nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
 
+  # Automatic garbage collection to prevent disk space issues
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    dates = lib.mkDefault "weekly";
+    options = lib.mkDefault "--delete-older-than 7d";
+  };
+
+  # Optimize nix store periodically
+  nix.optimise = {
+    automatic = lib.mkDefault true;
+    dates = lib.mkDefault [ "03:45" ];
+  };
+
   environment.systemPackages = with pkgs; [
     # Essential CLI tools
     wget
