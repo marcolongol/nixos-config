@@ -22,15 +22,6 @@
     kubectl
   ];
 
-  # Custom home directory structure
-  home.file = {
-    ".config/personal-scripts/.keep".text = "";
-    "work/.keep".text = "";
-    "personal/.keep".text = "";
-  };
-
-  programs.home-manager = { enable = true; };
-
   # Personal git configuration
   programs.git = {
     enable = true;
@@ -58,11 +49,6 @@
 
   # Personal shell configuration
   programs.zsh.shellAliases = {
-    # Personal shortcuts
-    work = "cd ~/work";
-    personal = "cd ~/personal";
-    nixconfig = "cd /etc/nixos";
-
     # Docker shortcuts
     dps = "docker ps";
     dcup = "docker-compose up -d";

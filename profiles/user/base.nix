@@ -1,6 +1,8 @@
-{ pkgs, lib, userConfig, ... }:
+{ pkgs, lib, inputs, userConfig, ... }:
 
 {
+
+  imports = [ inputs.impermanence.homeManagerModules.impermanence ];
 
   # Base user profile for all users
   home.username = lib.mkDefault userConfig.name;
@@ -8,6 +10,13 @@
 
   # Home directory management
   home.stateVersion = "25.05";
+
+  # Enable impermanence for home directory
+  home.persistence."/persist/home/${userConfig.name}" = lib.mkDefault {
+    directories = [ "Downloads" "Documents" "Pictures" "Work" "Personal" ];
+    files = [ ];
+    allowOther = false;
+  };
 
   # Essential packages for all users
   home.packages = with pkgs; [
@@ -22,12 +31,14 @@
   programs.home-manager.enable = lib.mkDefault true;
 
   # Basic shell configuration
-  programs.zsh = {
+  programs.zsh = lib.mkDefault {
     enable = true;
     enableCompletion = true;
 
     # Common aliases for all users
     shellAliases = lib.mkDefault {
+      work = "cd ~/work";
+      personal = "cd ~/personal";
       ll = "ls -l";
       la = "ls -la";
       grep = "grep --color=auto";

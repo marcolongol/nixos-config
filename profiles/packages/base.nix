@@ -19,6 +19,16 @@
     dates = lib.mkDefault [ "03:45" ];
   };
 
+  # Persistent storage configuration
+  # Creates the base persistent directories that Home Manager impermanence will use
+  # This supports both regular filesystem and separate partition setups
+  systemd.tmpfiles.rules = [
+    "d /persist 0755 root root -"
+    "d /persist/home 0755 root root -"
+    # Note: User-specific directories need to be created with proper ownership
+    # These will be created by the user profiles or individual user configs
+  ];
+
   environment.systemPackages = with pkgs; [
     # Essential CLI tools
     wget
