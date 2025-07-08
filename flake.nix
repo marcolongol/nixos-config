@@ -34,6 +34,13 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nixos-generators - Generate images for multiple formats
+    # https://github.com/nix-community/nixos-generators
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, flake-parts, nixpkgs, systems, ... }@inputs:
@@ -47,7 +54,7 @@
         inputs.flake-root.flakeModule
         ./tasks
       ];
-      perSystem = { system, config, self', inputs', pkgs, ... }: {
+      perSystem = { system, config, pkgs, ... }: {
         _module.args.pkgs = lib.utils.mkPkgsWithSystem system;
         devShells.default = import ./shell.nix { inherit config pkgs; };
         mission-control = { wrapperName = "run"; };
@@ -75,6 +82,23 @@
               extraGroups = [ "wheel" "docker" ];
             }];
             extraModules = [ ./modules/nvidia ];
+          };
+          nixos-livecd = lib.utils.mkSystem {
+            hostname = "nixos-livecd";
+            profiles = [ "livecd" ];
+            users = [{
+              name = "lucas";
+              profiles = [
+                "admin"
+                "livecd"
+              ]; # Include livecd user profile to disable impermanence
+              extraGroups = [ "wheel" ];
+            }];
+            extraModules = [
+              inputs.nixos-generators.nixosModules.all-formats
+              ./modules/image-formats.nix
+            ];
+            enableValidation = false; # Disable validation for image builds
           };
         };
         homeConfigurations = {

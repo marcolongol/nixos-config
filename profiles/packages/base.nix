@@ -1,7 +1,7 @@
 # Common packages shared across all systems
 # Minimal essential tools for all systems
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];

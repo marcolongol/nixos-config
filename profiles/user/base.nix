@@ -12,6 +12,7 @@
   home.stateVersion = "25.05";
 
   # Enable impermanence for home directory
+  # This will be automatically disabled when using live images
   home.persistence."/persist/home/${userConfig.name}" = lib.mkDefault {
     directories = [ "Downloads" "Documents" "Pictures" "Work" "Personal" ];
     files = [ ];
