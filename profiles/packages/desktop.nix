@@ -1,7 +1,5 @@
 # Desktop environment and applications profile
-{ config, lib, pkgs, ... }:
-
-{
+{ config, lib, pkgs, ... }: {
   # Desktop Applications
   environment.systemPackages = with pkgs; [
     # Essential applications
@@ -15,6 +13,8 @@
     libnotify
     swww
     rofi-wayland
+    nautilus
+    lf
 
     # Terminal emulators
     kitty
@@ -35,9 +35,7 @@
 
   # Environment Variables
   environment.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
-    NIXOS_OZONE_WL = "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   # Services
@@ -45,6 +43,18 @@
     printing.enable = lib.mkDefault true;
     blueman.enable = lib.mkDefault true;
     picom.enable = lib.mkDefault true; # Compositor for transparency and effects
+
+    # Display Manager Configuration
+    displayManager = {
+      defaultSession = "hyprland";
+      sddm = {
+        enable = lib.mkDefault true;
+        wayland.enable = lib.mkDefault true;
+      };
+    };
+
+    # Disable X11 to force Wayland
+    xserver.enable = lib.mkDefault false;
   };
 
   # Audio System
