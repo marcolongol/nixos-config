@@ -37,7 +37,10 @@ let
     };
   };
 
+  # Assets directory for shared resources
+  assetsDir = ../assets;
+
   utils = import ./utils.nix { inherit inputs lib; };
   validations = import ./validations.nix { inherit lib; };
 
-in { inherit hosts users profiles utils validations; }
+in { inherit hosts users profiles assetsDir utils validations; }

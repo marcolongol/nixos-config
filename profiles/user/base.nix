@@ -19,6 +19,14 @@
     allowOther = false;
   };
 
+  # Copy wallpapers to user's Pictures directory
+  home.file = {
+    "Pictures/Wallpapers" = {
+      source = "${lib.myLib.assetsDir}/wallpapers";
+      recursive = true;
+    };
+  };
+
   # Essential packages for all users
   home.packages = with pkgs; [
     # Basic CLI tools

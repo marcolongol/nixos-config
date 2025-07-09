@@ -60,7 +60,7 @@
 
     # Returns a NixOS system configuration
     lib.nixosSystem {
-      inherit system;
+      inherit system lib;
       pkgs = lib.myLib.utils.mkPkgsWithSystem system;
       specialArgs = { inherit inputs hostname; };
       modules = [
