@@ -32,7 +32,7 @@
             # Persistent storage partition
             persist = {
               size =
-                "80%"; # Most space goes to persistent data where it's actually needed
+                "100%"; # Most space goes to persistent data where it's actually needed
               content = {
                 type = "filesystem";
                 format = "ext4";

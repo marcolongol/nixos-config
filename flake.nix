@@ -86,14 +86,6 @@
           nixos-livecd = lib.utils.mkSystem {
             hostname = "nixos-livecd";
             profiles = [ "livecd" ];
-            users = [{
-              name = "lucas";
-              profiles = [
-                "admin"
-                "livecd"
-              ]; # Include livecd user profile to disable impermanence
-              extraGroups = [ "wheel" ];
-            }];
             extraModules = [
               inputs.nixos-generators.nixosModules.all-formats
               ./modules/image-formats.nix

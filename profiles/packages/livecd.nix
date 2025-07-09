@@ -7,8 +7,9 @@
 
   # Live image specific configurations
   services = {
-    # Enable cloud-init for cloud images
-    cloud-init.enable = lib.mkDefault true;
+    # Disable cloud-init by default for installation media
+    # Cloud formats will override this with lib.mkForce true
+    cloud-init.enable = lib.mkDefault false;
 
     # SSH configuration for live images
     openssh = {
