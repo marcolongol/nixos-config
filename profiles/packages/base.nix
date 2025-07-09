@@ -90,7 +90,7 @@
     };
 
     # Only allow wheel group (sudoers) to SSH
-    extraConfig = ''
+    extraConfig = lib.mkDefault ''
       AllowGroups wheel
     '';
   };

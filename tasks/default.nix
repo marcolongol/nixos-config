@@ -1,1 +1,1 @@
-{ imports = [ ./switch.nix ]; }
+{ imports = [ ./switch.nix ./images.nix ]; }
