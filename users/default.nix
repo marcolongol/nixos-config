@@ -74,12 +74,6 @@ in {
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
 
-    # Create persistent storage directories for each user
-    # 0700 permissions ensure only the user can access their persistent data
-    systemd.tmpfiles.rules = map (userConfig:
-      "d /persist/home/${userConfig.name} 0700 ${userConfig.name} users -")
-      cfg.enable;
-
     # Create system users
     users.users = lib.listToAttrs (map (userConfig: {
       name = userConfig.name;
@@ -95,10 +89,12 @@ in {
     home-manager.users = lib.listToAttrs (map (userConfig: {
       name = userConfig.name;
       value = lib.mkMerge [
+
         # Always import base profile
         (import (userProfilesPath + "/base.nix") {
           inherit pkgs lib inputs;
           inherit userConfig;
+          osConfig = config;
         })
 
         # Import additional user profiles (excluding base to avoid duplication)
@@ -107,6 +103,7 @@ in {
             import (userProfilesPath + "/${profile}.nix") {
               inherit pkgs lib inputs;
               inherit userConfig;
+              osConfig = config;
             }
           else
             { }) userConfig.profiles))
@@ -115,6 +112,7 @@ in {
         (import (usersPath + "/${userConfig.name}") {
           inherit pkgs lib inputs;
           inherit userConfig;
+          osConfig = config;
         })
       ];
     }) cfg.enable);

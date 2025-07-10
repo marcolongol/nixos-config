@@ -1,7 +1,7 @@
 # Common packages shared across all systems
 # Minimal essential tools for all systems
 
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 
 {
   nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
@@ -19,20 +19,10 @@
     dates = lib.mkDefault [ "03:45" ];
   };
 
-  # Persistent storage configuration
-  # Creates the base persistent directories that Home Manager impermanence will use
-  # This supports both regular filesystem and separate partition setups
-  systemd.tmpfiles.rules = [
-    "d /persist 0755 root root -"
-    "d /persist/home 0755 root root -"
-    # Note: User-specific directories need to be created with proper ownership
-    # These will be created by the user profiles or individual user configs
-  ];
-
   # System-level impermanence configuration
   # Only persists essential system files and directories
   # User-specific files are handled by home-manager impermanence
-  environment.persistence."/persist" = {
+  environment.persistence."/persist" = lib.mkDefault {
     hideMounts = true;
     directories = [
       "/var/log"

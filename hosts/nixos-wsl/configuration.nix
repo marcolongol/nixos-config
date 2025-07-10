@@ -25,5 +25,7 @@
   # Timezone configuration
   time.timeZone = "America/Los_Angeles";
 
+  # Disable impermanence for WSL - no persistent storage in WSL
+  environment.persistence = lib.mkForce { };
 }
 

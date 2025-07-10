@@ -1,6 +1,6 @@
 # Developer User Profile
 # Comprehensive development environment with modern tooling
-{ pkgs, ... }: {
+{ pkgs, lib, inputs, userConfig, osConfig ? { }, ... }: {
 
   # Development packages (extends common packages)
   home.packages = with pkgs; [
