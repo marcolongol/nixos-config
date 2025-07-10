@@ -15,6 +15,7 @@
     rofi-wayland
     nautilus
     lf
+    catppuccin-sddm
 
     # Terminal emulators
     kitty
@@ -51,6 +52,8 @@
       sddm = {
         enable = lib.mkDefault true;
         wayland.enable = lib.mkDefault true;
+        theme = "catppuccin-mocha";
+        package = pkgs.kdePackages.sddm;
       };
     };
 
