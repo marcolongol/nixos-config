@@ -27,6 +27,9 @@
     xwayland.enable = lib.mkDefault true;
   };
 
+  # Lock screen utility for Hyprland
+  programs.hyprlock = { enable = lib.mkDefault true; };
+
   # XDG Desktop Portal
   xdg.portal = {
     enable = lib.mkDefault true;
@@ -34,9 +37,7 @@
   };
 
   # Environment Variables
-  environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-  };
+  environment.sessionVariables = { WLR_NO_HARDWARE_CURSORS = "1"; };
 
   # Services
   services = {

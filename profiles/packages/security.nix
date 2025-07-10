@@ -91,4 +91,6 @@
     dates = "weekly";
     allowReboot = lib.mkDefault false;
   };
+
+  security.pam.services = { login = { enable = lib.mkDefault true; }; };
 }
