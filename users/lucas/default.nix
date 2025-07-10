@@ -20,6 +20,9 @@
     docker-compose
     k9s
     kubectl
+
+    # Remote access and management
+    remmina
   ];
 
   # Personal git configuration
