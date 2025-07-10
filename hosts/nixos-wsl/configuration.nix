@@ -1,9 +1,11 @@
 # nixos-wsl Configuration
 # Host-specific configuration for nixos-wsl
-
-{ config, lib, pkgs, hostname, ... }:
-
-{
+{ config
+, lib
+, pkgs
+, hostname
+, ...
+}: {
   networking.hostName = hostname;
 
   # This value determines the NixOS release from which the default
@@ -24,8 +26,4 @@
 
   # Timezone configuration
   time.timeZone = "America/Los_Angeles";
-
-  # Disable impermanence for WSL - no persistent storage in WSL
-  environment.persistence = lib.mkForce { };
 }
-

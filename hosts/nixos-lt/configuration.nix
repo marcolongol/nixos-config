@@ -1,9 +1,11 @@
 # nixos-lt Configuration
 # Host-specific configuration for nixos-lt
-
-{ config, lib, pkgs, hostname, ... }:
-
-{
+{ config
+, lib
+, pkgs
+, hostname
+, ...
+}: {
   networking.hostName = hostname;
 
   # This value determines the NixOS release from which the default
@@ -51,4 +53,6 @@
     };
   };
 
+  # System-level impermanence configuration
+  environment.persistence."/persist" = lib.myLib.utils.mkSystemPersistence { };
 }

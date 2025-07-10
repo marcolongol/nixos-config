@@ -1,19 +1,10 @@
-{ pkgs, lib, inputs, userConfig, osConfig ? { }, ... }:
-
-let
-  # Check if osConfig is properly provided (indicating NixOS integration)
-  # When using standalone home-manager, osConfig defaults to { } and lacks environment
-  persistenceEnabled = if osConfig ? environment then
-    osConfig.environment.persistence != { }
-  else
-    lib.warn ''
-      WARNING: Using standalone home-manager without NixOS integration.
-      Persistence features are disabled. If this system uses impermanence,
-      please use 'sudo nixos-rebuild switch --flake .' instead of 'home-manager switch'.
-    '' false;
-
-in {
-
+{ pkgs
+, lib
+, inputs
+, userConfig
+, osConfig ? { }
+, ...
+}: {
   imports = [ inputs.impermanence.homeManagerModules.impermanence ];
 
   # Base user profile for all users
@@ -22,14 +13,6 @@ in {
 
   # Home directory management
   home.stateVersion = "25.05";
-
-  # Enable impermanence for home directory when persistence is enabled at system level
-  home.persistence."/persist/home/${userConfig.name}" =
-    lib.mkIf persistenceEnabled (lib.mkDefault {
-      directories = [ "Downloads" "Documents" "Pictures" "Work" "Personal" ];
-      files = [ ];
-      allowOther = false;
-    });
 
   # Copy wallpapers to user's Pictures directory
   home.file = {
@@ -80,4 +63,3 @@ in {
   # Basic environment variables
   home.sessionVariables = lib.mkDefault { PAGER = "less"; };
 }
-

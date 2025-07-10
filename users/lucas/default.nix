@@ -1,9 +1,21 @@
 # Lucas's Individual User Configuration
 # This file contains custom configurations specific to Lucas
 # It extends the base developer profile with personal preferences
-{ pkgs, lib, userConfig ? null, ... }: {
+{ pkgs
+, lib
+, userConfig
+, osConfig ? { }
+, ...
+}: {
   # Import additional configuration modules
   imports = [ ./config ];
+
+  # Enable impermanence for home directory when persistence is enabled at system level
+  home.persistence."/persist/home/${userConfig.name}" = lib.myLib.utils.mkHomePersistence {
+    inherit osConfig;
+    directories = [ ".config/1Password" ".mozilla" ];
+    files = [ ];
+  };
 
   home.packages = with pkgs; [
     # Personal productivity tools
@@ -36,8 +48,7 @@
       pull.rebase = true;
       push.autoSetupRemote = true;
       gpg.format = "ssh";
-      "gpg \"ssh\"".program =
-        "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+      "gpg \"ssh\"".program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
       commit.gpgSign = false;
     };
   };
@@ -65,4 +76,3 @@
     TERMINAL = "alacritty";
   };
 }
-

@@ -1,10 +1,9 @@
 # Live CD/Image profile
 # Configuration for live images, installation media, and cloud images
-{ lib, pkgs, ... }: {
-
-  # Disable impermanence for live images by overriding the base profile's persistence config
-  environment.persistence."/persist" = lib.mkForce { };
-
+{ lib
+, pkgs
+, ...
+}: {
   # Live image specific configurations
   services = {
     # Disable cloud-init by default for installation media
