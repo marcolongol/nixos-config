@@ -1,9 +1,10 @@
 # Common packages shared across all systems
 # Minimal essential tools for all systems
-
-{ lib, pkgs, config, ... }:
-
-{
+{ lib
+, pkgs
+, config
+, ...
+}: {
   nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
 
   # Automatic garbage collection to prevent disk space issues
@@ -46,6 +47,7 @@
     unzip
     file
     openssh
+    xclip
 
     # System information and utilities
     pfetch
