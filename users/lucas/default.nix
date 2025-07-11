@@ -36,6 +36,13 @@
 
     # Remote access and management
     remmina
+
+    # Misc
+    yubikey-agent
+    yubikey-manager
+    yubikey-personalization
+    yubikey-touch-detector
+    age-plugin-yubikey
   ];
 
   # Personal git configuration

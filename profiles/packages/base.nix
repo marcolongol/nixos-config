@@ -48,6 +48,8 @@
     file
     openssh
     xclip
+    age
+    sops
 
     # System information and utilities
     pfetch
