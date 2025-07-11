@@ -8,7 +8,7 @@
 , ...
 }: {
   # Import additional configuration modules
-  imports = [ ./config ];
+  imports = [ ./config ./scripts ];
 
   # Enable impermanence for home directory when persistence is enabled at system level
   home.persistence."/persist/home/${userConfig.name}" = lib.myLib.utils.mkHomePersistence {
