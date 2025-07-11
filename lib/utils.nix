@@ -138,6 +138,7 @@
     { osConfig
     , directories ? [ ]
     , files ? [ ]
+    , allowOther ? false
     ,
     }:
     let
@@ -156,6 +157,7 @@
     in
     if persistenceEnabled
     then {
+      inherit allowOther;
       directories =
         [ "Downloads" "Documents" "Pictures" "Work" "Personal" ]
         ++ directories;

@@ -89,4 +89,7 @@
 
   # Basic security
   security.sudo.wheelNeedsPassword = false;
+
+  # Fuse
+  programs.fuse.userAllowOther = true;
 }

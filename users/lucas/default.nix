@@ -13,6 +13,7 @@
   # Enable impermanence for home directory when persistence is enabled at system level
   home.persistence."/persist/home/${userConfig.name}" = lib.myLib.utils.mkHomePersistence {
     inherit osConfig;
+    allowOther = true;
     directories = [ ".config/1Password" ".mozilla" ];
     files = [ ];
   };
