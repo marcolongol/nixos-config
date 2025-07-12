@@ -159,7 +159,7 @@
     then {
       inherit allowOther;
       directories =
-        [ "Downloads" "Documents" "Pictures" "Work" "Personal" ]
+        [ "Downloads" "Documents" "Pictures" "Work" "Personal" ".ssh" ]
         ++ directories;
       files = [ ] ++ files;
     }
