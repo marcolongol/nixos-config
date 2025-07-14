@@ -1,5 +1,9 @@
 # Desktop environment and applications profile
-{ config, lib, pkgs, ... }: {
+{ config
+, lib
+, pkgs
+, ...
+}: {
   # Desktop Applications
   environment.systemPackages = with pkgs; [
     # Essential applications
@@ -16,6 +20,7 @@
     nautilus
     lf
     catppuccin-sddm
+    brightnessctl
 
     # Terminal emulators
     kitty

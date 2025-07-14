@@ -32,6 +32,8 @@
     direnv
     fd # Better find for telescope
     go-task
+    k9s
+    kubectl
 
     # System analysis
     btop

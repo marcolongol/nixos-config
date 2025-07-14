@@ -28,12 +28,6 @@
     # Communication tools
     webex
 
-    # Version control and development tools
-    gh
-    docker-compose
-    k9s
-    kubectl
-
     # Remote access and management
     remmina
 
@@ -42,7 +36,6 @@
     yubikey-manager
     yubikey-personalization
     yubikey-touch-detector
-    age-plugin-yubikey
   ];
 
   # Personal git configuration
