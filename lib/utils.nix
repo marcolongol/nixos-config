@@ -99,6 +99,7 @@
       inherit lib;
       pkgs = lib.myLib.utils.mkPkgsWithSystem system;
       extraSpecialArgs = { inherit inputs; };
+      backupFileExtension = ".bak";
       modules =
         [
           # Import base profile (always included)

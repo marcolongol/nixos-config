@@ -1,0 +1,221 @@
+@define-color background #1e1e1e;
+@define-color color1 #ff5555;
+@define-color color2 #50fa7b;
+@define-color color3 #f1fa8c;
+@define-color color4 #bd93f9;
+@define-color color5 #ff79c6;
+@define-color color6 #8be9fd;
+@define-color color7 #f8f8f2;
+@define-color color8 #6272a4;
+@define-color color9 #ffb86c;
+
+* {
+  border: none;
+  font-size: 15px;
+  font-family: "MesloLG Nerd Font", monospace;
+}
+
+window#waybar {
+  all: unset;
+}
+
+.modules-left {
+  padding: 7px;
+  margin: 10 0 5 10;
+  border-radius: 3px;
+  background: alpha(@background, 0.6);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+}
+
+.modules-center {
+  padding: 7px;
+  margin: 10 0 5 0;
+  border-radius: 3px;
+  background: alpha(@background, 0.6);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+}
+
+.modules-right {
+  padding: 7px;
+  margin: 10 10 5 0;
+  border-radius: 3px;
+  background: alpha(@background, 0.6);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+}
+
+tooltip {
+  background: alpha(@background, 0.9);
+  color: @color7;
+}
+
+#clock:hover,
+#bluetooth:hover,
+#network:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#custom-power:hover,
+#custom-quit:hover,
+#custom-lock:hover,
+#custom-reboot:hover,
+#temperature:hover {
+  transition: all 0.3s ease;
+  color: @color9;
+}
+
+#clock {
+  padding: 0px 5px;
+  color: @color7;
+  transition: all 0.3s ease;
+}
+
+#workspaces button {
+  all: unset;
+  padding: 0px 5px;
+  color: alpha(@color9, 0.4);
+  transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+  color: rgba(0, 0, 0, 0);
+  border: none;
+  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.5);
+  transition: all 1s ease;
+}
+
+#workspaces button.active {
+  color: @color9;
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+#workspaces button.empty {
+  color: rgba(0, 0, 0, 0);
+  border: none;
+  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.empty:hover {
+  color: rgba(0, 0, 0, 0);
+  border: none;
+  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.5);
+  transition: all 1s ease;
+}
+
+#workspaces button.empty.active {
+  color: @color9;
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+#bluetooth {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @color7;
+}
+
+#network {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @color7;
+}
+
+#battery {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @color7;
+}
+
+#battery.charging {
+  color: #26a65b;
+  animation: blink 1s infinite alternate;
+}
+
+#battery.warning:not(.charging) {
+  color: #ffbe61;
+}
+
+#battery.good:not(.charging) {
+  color: #50fa7b;
+}
+
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  animation: blink 1s infinite alternate;
+}
+
+#cpu {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @color7;
+}
+
+#cpu.good {
+  color: @color2;
+}
+
+#cpu.warning {
+  color: @color9;
+  animation: blink 1s infinite alternate;
+}
+
+#cpu.critical {
+  color: @color1;
+  animation: blink 1s infinite alternate;
+}
+
+#memory {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @color7;
+}
+
+#disk {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @color7;
+}
+
+#disk.warning {
+  color: @color9;
+  animation: blink 1s infinite alternate;
+}
+
+#disk.critical {
+  color: @color1;
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+#custom-power {
+  padding: 0px 5px;
+  color: @color7;
+  transition: all 0.3s ease;
+}
+
+#custom-quit {
+  padding: 0px 5px;
+  color: @color7;
+  transition: all 0.3s ease;
+}
+
+#custom-lock {
+  padding: 0px 5px;
+  color: @color7;
+  transition: all 0.3s ease;
+}
+
+#custom-reboot {
+  padding: 0px 5px;
+  color: @color7;
+  transition: all 0.3s ease;
+}

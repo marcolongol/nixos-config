@@ -15,7 +15,7 @@
     inherit osConfig;
     allowOther = true;
     directories = [ ".config/1Password" ".mozilla" ];
-    files = [ ];
+    files = [ ".zsh_history" ];
   };
 
   home.packages = with pkgs; [

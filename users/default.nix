@@ -1,4 +1,9 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
 let
   inherit (lib.myLib.users) availableUsers usersPath;
   inherit (lib.myLib.profiles.user) availableUserProfiles userProfilesPath;
@@ -43,7 +48,8 @@ let
       };
     };
   };
-in {
+in
+{
   options.myUsers = {
     enable = lib.mkOption {
       type = lib.types.listOf userType;
@@ -70,51 +76,59 @@ in {
   };
 
   config = lib.mkIf (cfg.enable != [ ]) {
-    # system wide 
+    # system wide
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
 
     # Create system users
-    users.users = lib.listToAttrs (map (userConfig: {
-      name = userConfig.name;
-      value = {
-        isNormalUser = true;
-        description = userConfig.name;
-        extraGroups = userConfig.extraGroups;
-        initialPassword = userConfig.initialPassword;
-      };
-    }) cfg.enable);
+    users.users = lib.listToAttrs (map
+      (userConfig: {
+        name = userConfig.name;
+        value = {
+          isNormalUser = true;
+          description = userConfig.name;
+          extraGroups = userConfig.extraGroups;
+          initialPassword = userConfig.initialPassword;
+        };
+      })
+      cfg.enable);
+
+    home-manager.backupFileExtension = ".bak";
 
     # Configure home-manager for each user
-    home-manager.users = lib.listToAttrs (map (userConfig: {
-      name = userConfig.name;
-      value = lib.mkMerge [
+    home-manager.users = lib.listToAttrs (map
+      (userConfig: {
+        name = userConfig.name;
+        value = lib.mkMerge [
+          # Always import base profile
+          (import (userProfilesPath + "/base.nix") {
+            inherit pkgs lib inputs;
+            inherit userConfig;
+            osConfig = config;
+          })
 
-        # Always import base profile
-        (import (userProfilesPath + "/base.nix") {
-          inherit pkgs lib inputs;
-          inherit userConfig;
-          osConfig = config;
-        })
+          # Import additional user profiles (excluding base to avoid duplication)
+          (lib.mkMerge (map
+            (profile:
+              if profile != "base"
+              then
+                import (userProfilesPath + "/${profile}.nix")
+                  {
+                    inherit pkgs lib inputs;
+                    inherit userConfig;
+                    osConfig = config;
+                  }
+              else { })
+            userConfig.profiles))
 
-        # Import additional user profiles (excluding base to avoid duplication)
-        (lib.mkMerge (map (profile:
-          if profile != "base" then
-            import (userProfilesPath + "/${profile}.nix") {
-              inherit pkgs lib inputs;
-              inherit userConfig;
-              osConfig = config;
-            }
-          else
-            { }) userConfig.profiles))
-
-        # Import individual user configuration if it exists
-        (import (usersPath + "/${userConfig.name}") {
-          inherit pkgs lib inputs;
-          inherit userConfig;
-          osConfig = config;
-        })
-      ];
-    }) cfg.enable);
+          # Import individual user configuration if it exists
+          (import (usersPath + "/${userConfig.name}") {
+            inherit pkgs lib inputs;
+            inherit userConfig;
+            osConfig = config;
+          })
+        ];
+      })
+      cfg.enable);
   };
 }
