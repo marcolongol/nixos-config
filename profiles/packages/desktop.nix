@@ -90,9 +90,17 @@
     noto-fonts
 
     # Nerd fonts for programming
+    nerd-fonts.meslo-lg
     nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
     nerd-fonts.hack
   ];
+
+  fonts.fontconfig.defaultFonts = {
+    monospace = [ "MesloLGS Nerd Font" ];
+    sansSerif = [ "MesloLGS Nerd Font" ];
+    serif = [ "MesloLGS Nerd Font" ];
+  };
 
   # Network Configuration
   networking.networkmanager.enable = lib.mkDefault true;
