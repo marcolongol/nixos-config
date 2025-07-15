@@ -55,6 +55,7 @@
     pfetch
     lshw
     coreutils
+    power-profiles-daemon
 
     # Basic text processing
     ripgrep
