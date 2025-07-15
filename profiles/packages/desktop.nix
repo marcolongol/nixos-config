@@ -1,9 +1,5 @@
 # Desktop environment and applications profile
-{ config
-, lib
-, pkgs
-, ...
-}: {
+{ lib, pkgs, config, ... }: {
   # Desktop Applications
   environment.systemPackages = with pkgs; [
     # Essential applications
@@ -18,7 +14,6 @@
     swww
     rofi-wayland
     nautilus
-    lf
     catppuccin-sddm
     brightnessctl
 
@@ -31,6 +26,7 @@
   programs.hyprland = {
     enable = lib.mkDefault true;
     xwayland.enable = lib.mkDefault true;
+    withUWSM = true;
   };
 
   # Lock screen utility for Hyprland
@@ -53,7 +49,7 @@
 
     # Display Manager Configuration
     displayManager = {
-      defaultSession = "hyprland";
+      defaultSession = "hyprland-uwsm";
       sddm = {
         enable = lib.mkDefault true;
         wayland.enable = lib.mkDefault true;
@@ -76,13 +72,7 @@
   };
 
   # Graphics Support
-  hardware = {
-    bluetooth = {
-      enable = lib.mkDefault true;
-      powerOnBoot = lib.mkDefault true;
-    };
-    graphics = { enable = lib.mkDefault true; };
-  };
+  hardware.graphics.enable = lib.mkDefault true;
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -101,7 +91,4 @@
     sansSerif = [ "MesloLGS Nerd Font" ];
     serif = [ "MesloLGS Nerd Font" ];
   };
-
-  # Network Configuration
-  networking.networkmanager.enable = lib.mkDefault true;
 }

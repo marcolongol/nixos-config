@@ -1,9 +1,6 @@
 # Live CD/Image profile
 # Configuration for live images, installation media, and cloud images
-{ lib
-, pkgs
-, ...
-}: {
+{ lib, pkgs, config, ... }: {
   # Live image specific configurations
   services = {
     # Disable cloud-init by default for installation media
@@ -32,9 +29,6 @@
     # Disable unnecessary services for live images to save memory
     printing.enable = lib.mkDefault false;
     avahi.enable = lib.mkDefault false;
-
-    # Enable fstrim for SSD optimization
-    fstrim.enable = lib.mkDefault true;
   };
 
   # User configuration for live images
@@ -57,14 +51,8 @@
     };
   };
 
-  # Networking configuration
-  networking = {
-    useDHCP = lib.mkDefault true;
-    networkmanager.enable = lib.mkDefault true;
-
-    # Disable firewall for live images to avoid connectivity issues
-    firewall.enable = lib.mkForce false;
-  };
+  # Disable firewall for live images to avoid connectivity issues
+  networking.firewall.enable = lib.mkDefault false;
 
   # Boot configuration for live images
   boot = {

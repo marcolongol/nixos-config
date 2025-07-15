@@ -1,10 +1,7 @@
 # Common packages shared across all systems
 # Minimal essential tools for all systems
-{ lib
-, pkgs
-, config
-, ...
-}: {
+{ lib, pkgs, config, ... }: {
+  # Nix settings for package management
   nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
 
   # Automatic garbage collection to prevent disk space issues
@@ -18,22 +15,6 @@
   nix.optimise = {
     automatic = lib.mkDefault true;
     dates = lib.mkDefault [ "03:45" ];
-  };
-
-  # System-level impermanence configuration
-  # Only persists essential system files and directories
-  # User-specific files are handled by home-manager impermanence
-  environment.persistence."/persist" = lib.mkDefault {
-    hideMounts = true;
-    directories = [
-      "/var/log"
-      "/var/lib/bluetooth"
-      "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
-      "/etc/NetworkManager/system-connections"
-      "/etc/ssh"
-    ];
-    files = [ "/etc/machine-id" ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -55,44 +36,37 @@
     pfetch
     lshw
     coreutils
-    power-profiles-daemon
 
     # Basic text processing
     ripgrep
     jq
   ];
 
-  # SSH service with secure defaults
-  services.openssh = {
-    enable = lib.mkDefault true;
-    settings = {
-      # Security hardening
-      PasswordAuthentication = lib.mkDefault false;
-      PermitRootLogin = lib.mkDefault "no";
-      PubkeyAuthentication = lib.mkDefault true;
-      AuthenticationMethods = lib.mkDefault "publickey";
+  services = {
+    # Firmware updates for hardware components
+    fwupd.enable = lib.mkDefault true;
+    # SMART monitoring for hard drives
+    smartd.enable = lib.mkDefault true;
 
-      # Connection settings
-      ClientAliveInterval = lib.mkDefault 300;
-      ClientAliveCountMax = lib.mkDefault 2;
-      MaxAuthTries = lib.mkDefault 3;
-
-      # Protocol settings
-      Protocol = lib.mkDefault 2;
-      X11Forwarding = lib.mkDefault false;
-      AllowAgentForwarding = lib.mkDefault false;
-      AllowTcpForwarding = lib.mkDefault "local";
-    };
-
-    # Only allow wheel group (sudoers) to SSH
-    extraConfig = lib.mkDefault ''
-      AllowGroups wheel
-    '';
   };
 
-  # Basic security
-  security.sudo.wheelNeedsPassword = false;
+  hardware = {
+    # Enable Bluetooth support
+    bluetooth = {
+      enable = lib.mkDefault true;
+      powerOnBoot = lib.mkDefault true;
+    };
+  };
+
+  # Sudo configuration
+  security.sudo.wheelNeedsPassword = lib.mkDefault false;
 
   # Fuse
-  programs.fuse.userAllowOther = true;
+  programs.fuse.userAllowOther = lib.mkDefault true;
+
+  # Dconf
+  programs.dconf.enable = lib.mkDefault true;
+
+  # Network Configuration
+  networking.networkmanager.enable = lib.mkDefault true;
 }

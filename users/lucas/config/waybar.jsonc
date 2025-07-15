@@ -8,7 +8,6 @@
   "modules-right": [
     // "mpd",
     // "pulseaudio",
-    // "power-profiles-daemon",
     "group/expand",
     // "backlight",
     // "keyboard-state",
@@ -40,7 +39,13 @@
       "transition-to-left": true,
       "click-to-reveal": true,
     },
-    "modules": ["custom/expand", "cpu", "memory", "disk"],
+    "modules": [
+      "custom/expand",
+      "power-profiles-daemon",
+      "cpu",
+      "memory",
+      "disk",
+    ],
   },
   "custom/expand": {
     "format": "",
@@ -166,5 +171,12 @@
     "format-charging": "{capacity}% 󰂄 ",
     "format-alt": "{capacity}% {icon}",
     "format-icons": ["󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"],
+  },
+  "power-profiles-daemon": {
+    "format-icons": {
+      "performance": "🚀",
+      "balanced": "⚖️",
+      "power-saver": "💤",
+    },
   },
 }

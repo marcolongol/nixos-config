@@ -56,7 +56,7 @@
   '';
 
   # GPG configuration
-  programs.gpg = { enable = true; };
+  programs.gpg.enable = true;
 
   # Tmux for session management
   programs.tmux = {

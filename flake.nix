@@ -62,7 +62,10 @@
       };
       flake = {
         inherit outputs;
+        # SECTION: Nixos Configurations
+        # ----------------------------------------------------------------------
         nixosConfigurations = {
+          # nixos-wsl: NixOS configuration for WSL (Windows Subsystem for Linux)
           nixos-wsl = lib.utils.mkSystem {
             hostname = "nixos-wsl";
             profiles = [ "development" "security" ];
@@ -73,6 +76,7 @@
             }];
             extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];
           };
+          # nixos-lt: NixOS configuration for my laptop
           nixos-lt = lib.utils.mkSystem {
             hostname = "nixos-lt";
             profiles = [ "desktop" "development" "security" ];
@@ -83,6 +87,7 @@
             }];
             extraModules = [ ./modules/nvidia ];
           };
+          # nixos-livecd: NixOS configuration for live CD image
           nixos-livecd = lib.utils.mkSystem {
             hostname = "nixos-livecd";
             profiles = [ "livecd" ];
@@ -93,6 +98,8 @@
             enableValidation = false; # Disable validation for image builds
           };
         };
+        # SECTION: Home Manager Configurations
+        # ----------------------------------------------------------------------
         homeConfigurations = {
           lucas = lib.utils.mkHome {
             user = {

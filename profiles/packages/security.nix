@@ -1,7 +1,7 @@
 # Security hardening and monitoring tools
 # Additional security measures for exposed systems
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -15,6 +15,34 @@
     # System monitoring
     lynis
   ];
+
+  # SSH service with secure defaults
+  services.openssh = {
+    enable = lib.mkDefault true;
+    settings = {
+      # Security hardening
+      PasswordAuthentication = lib.mkDefault false;
+      PermitRootLogin = lib.mkDefault "no";
+      PubkeyAuthentication = lib.mkDefault true;
+      AuthenticationMethods = lib.mkDefault "publickey";
+
+      # Connection settings
+      ClientAliveInterval = lib.mkDefault 300;
+      ClientAliveCountMax = lib.mkDefault 2;
+      MaxAuthTries = lib.mkDefault 3;
+
+      # Protocol settings
+      Protocol = lib.mkDefault 2;
+      X11Forwarding = lib.mkDefault false;
+      AllowAgentForwarding = lib.mkDefault false;
+      AllowTcpForwarding = lib.mkDefault "local";
+    };
+
+    # Only allow wheel group (sudoers) to SSH
+    extraConfig = lib.mkDefault ''
+      AllowGroups wheel
+    '';
+  };
 
   # fail2ban configuration
   services.fail2ban = {
@@ -92,5 +120,6 @@
     allowReboot = lib.mkDefault false;
   };
 
-  security.pam.services = { login = { enable = lib.mkDefault true; }; };
+  # PAM configuration for login security
+  security.pam.services.login.enable = lib.mkDefault true;
 }

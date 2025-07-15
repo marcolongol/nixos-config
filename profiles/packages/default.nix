@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 let
   inherit (lib.myLib.profiles.packages)
     availablePackageProfiles packageProfilesPath;

@@ -54,6 +54,10 @@
       };
     };
 
+  # Function to create a NixOS system configuration
+  # It validates the hostname and profiles if enableValidation is true.
+  # It returns a NixOS system configuration with the specified modules and packages.  
+  # Example usage: mkSystem { system = "x86_64-linux"; hostname = "myhost"; }
   mkSystem =
     { system ? "x86_64-linux"
     , hostname
@@ -89,6 +93,10 @@
           ++ extraModules;
       };
 
+  # Function to create a home-manager configuration for a user
+  # It imports the base user profile and additional profiles specified.
+  # It returns a home-manager configuration with the specified user and system.
+  # Example usage: mkHome { user = { name = "john"; profiles = ["development"]; }; }
   mkHome =
     { user
     , system ? "x86_64-linux"
@@ -108,7 +116,6 @@
             pkgs = lib.myLib.utils.mkPkgsWithSystem system;
             userConfig = user;
           })
-
           # Import additional user profiles
         ]
         ++ (map
@@ -135,6 +142,19 @@
         ++ extraModules;
     };
 
+  # Function to create a home-manager persistence configuration
+  # It sets up directories and files to persist across home-manager runs.
+  # It checks if the osConfig is provided to enable persistence features.
+  # Example usage: mkHomePersistence { osConfig = {}; directories = ["Downloads"]; }
+  # If osConfig is not provided, it warns about using standalone home-manager.
+  # If osConfig is provided, it uses the environment.persistence settings.
+  # If persistence is enabled, it returns the directories and files to persist.
+  # Otherwise, it returns an empty set.
+  # Note: This function is used to ensure that home-manager configurations
+  #       can persist certain directories and files across runs.
+  #       It is particularly useful for user-specific configurations.
+  #       If the system uses impermanence, it should be used with NixOS
+  #       integration to ensure proper persistence.
   mkHomePersistence =
     { osConfig
     , directories ? [ ]
@@ -166,6 +186,15 @@
     }
     else { };
 
+  # Function to create a system persistence configuration
+  # It sets up directories and files to persist across system runs.
+  # It returns a configuration with hideMounts set to true and specified directories and files.
+  # Example usage: mkSystemPersistence { directories = [ "/var/log" ]; files = [ "/etc/machine-id" ]; }
+  # This function is used to ensure that certain system directories and files
+  # are persisted across system runs, particularly useful for NixOS configurations.
+  # It is particularly useful for system-level configurations that require
+  # persistence of certain directories and files across reboots.
+  # It can be used in conjunction with NixOS impermanence features.
   mkSystemPersistence =
     { directories ? [ ]
     , files ? [ ]

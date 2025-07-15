@@ -1,10 +1,6 @@
 # Development tools and environments
 # Essential programming tools
-{ config
-, lib
-, pkgs
-, ...
-}: {
+{ lib, pkgs, config, ... }: {
   environment.systemPackages = with pkgs; [
     # Version control (git is also in common, but that's fine for clarity)
     git
@@ -29,7 +25,6 @@
     # Terminal tools
     alacritty
     tmux
-    direnv
     fd # Better find for telescope
     go-task
     k9s
@@ -42,7 +37,6 @@
     nixd
 
     # Code formatting
-    nixfmt-classic
     alejandra
   ];
 
