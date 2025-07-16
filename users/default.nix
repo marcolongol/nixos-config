@@ -93,7 +93,7 @@ in
       })
       cfg.enable);
 
-    home-manager.backupFileExtension = ".bak";
+    home-manager.backupFileExtension = "bak";
 
     # Configure home-manager for each user
     home-manager.users = lib.listToAttrs (map

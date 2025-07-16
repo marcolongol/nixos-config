@@ -35,6 +35,23 @@
 
     # Custom packages
     custom.nixvim
+
+    # Programming Languages
+    (python3.withPackages (ps:
+      with ps; [
+        black
+        flake8
+        isort
+        mypy
+        pylint
+        ruff
+        pytest
+        requests
+        numpy
+        pandas
+        psutil
+        types-psutil
+      ]))
   ];
 
   # Extended shell configuration for developers
