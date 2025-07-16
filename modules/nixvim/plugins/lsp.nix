@@ -28,13 +28,15 @@
         lspBufAction = "hover";
       }
       {
-        action = lib.nixvim.mkRaw
-          "function() vim.diagnostic.jump({ count=-1, float=true }) end";
+        action =
+          lib.nixvim.mkRaw
+            "function() vim.diagnostic.jump({ count=-1, float=true }) end";
         key = "[d";
       }
       {
-        action = lib.nixvim.mkRaw
-          "function() vim.diagnostic.jump({ count=1, float=true }) end";
+        action =
+          lib.nixvim.mkRaw
+            "function() vim.diagnostic.jump({ count=1, float=true }) end";
         key = "]d";
       }
       {
@@ -82,7 +84,14 @@
       eslint.enable = true;
       pyright.enable = true;
       yamlls.enable = true;
-      jsonls.enable = true;
+      jsonls = {
+        enable = true;
+        extraOptions = {
+          init_options = {
+            provideFormatter = false;
+          };
+        };
+      };
     };
   };
   extraConfigLua = ''

@@ -60,7 +60,7 @@
     {
       mode = "n";
       key = "<leader>c";
-      action = "<cmd>BufferLineCloseLeft<cr>";
+      action = "<cmd>bdelete<cr>";
       options.desc = "Close current buffer";
     }
 

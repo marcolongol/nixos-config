@@ -1,9 +1,11 @@
 {
   plugins.none-ls = {
     enable = true;
+    enableLspFormat = true;
     settings = {
-      cmd = [ "bash -c nvim" ];
+      cmd = [ "nvim" ];
       debug = true;
+      notify-format = "[null-ls] %s";
     };
     sources = {
       code_actions = {
