@@ -10,7 +10,7 @@
     lib.myLib.utils.mkHomePersistence {
       inherit osConfig;
       allowOther = true;
-      directories = [ ".config/1Password" ".mozilla" ".config/Code" ];
+      directories = [ ".config/1Password" ".mozilla" ".config/Code" "./config/remmina" ];
       files = [ ".zsh_history" ".local/share/zoxide/db.zo" ];
     };
 
