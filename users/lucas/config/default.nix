@@ -6,6 +6,7 @@
     ".config/alacritty/alacritty.toml".source = ./alacritty.toml;
     ".config/hypr/hyprland.conf".source = ./hyprland.conf;
     ".config/waybar/config.jsonc".source = ./waybar.jsonc;
+    ".config/waybar/modules.jsonc".source = ./modules.jsonc;
     ".config/waybar/style.css".source = ./waybar.css;
 
     # Add other configuration files here as needed

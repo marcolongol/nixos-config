@@ -1,0 +1,128 @@
+{
+  // SECTION: Vanilla Modules
+  // -------------------------
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",
+      "default": "",
+      "empty": "",
+    },
+    "persistent-workspaces": {
+      "*": 4,
+    },
+  },
+  "cpu": {
+    "interval": 1,
+    "format": " {usage}%",
+    "max-length": 10,
+    "states": {
+      "good": 50,
+      "warning": 70,
+      "critical": 90,
+    },
+  },
+  "memory": {
+    "interval": 30,
+    "format": "\uefc5 {}%",
+    "max-length": 10,
+    "tooltip-format": "{used}GB / {total}GB ({percentage}%)",
+  },
+  "disk": {
+    "format": " {percentage_used}%",
+    "states": {
+      "mounted": 0,
+      "warning": 70,
+      "critical": 90,
+    },
+    "path": "/persist",
+  },
+  "clock": {
+    "interval": 1,
+    "format": " {:%H:%M}",
+    "format-alt": "{:%A, %B %d, %Y (%R)}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+      },
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down",
+    },
+  },
+  "network": {
+    "interval": 1,
+    "format-wifi": "󰤨",
+    "format-wifi-alt": "{signalStrength}% 󰤨",
+    "format-ethernet": "",
+    "format-disconnected": "",
+    "tooltip-format-disconnected": "Error",
+    "tooltip-format-wifi": "{essid} ({ifname})\n{ipaddr}\n{signalStrength}%\n{bandwidthDownBytes} ↓ {bandwidthUpBytes} ↑",
+    "tooltip-format-ethernet": "{ifname} 🖧 ",
+    "on-click-right": "alacritty -e nmtui",
+  },
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "󰂲",
+    "format-disabled": "󰂲",
+    "format-connected-battery": "{device_battery_percentage}% 󰂯",
+    "format-alt": "{device_alias} 󰂯",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
+    "on-click-right": "blueman-manager",
+  },
+  "battery": {
+    "interval": 1,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{icon}",
+    "format-charging": "{capacity}% 󰂄 ",
+    "format-alt": "{capacity}% {icon}",
+    "format-icons": ["󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"],
+  },
+  // SECTION: Custom Modules
+  // ------------------------
+  "custom/expand": {
+    "format": "",
+    "tooltip": false,
+  },
+  "custom/quit": {
+    "format": "󰗼",
+    "tooltip-format": "Quit Hyprland",
+    "tooltip": true,
+    "on-click": "hyprctl dispatch exit",
+  },
+  "custom/lock": {
+    "format": "󰍁",
+    "tooltip-format": "Lock Screen",
+    "tooltip": true,
+    "on-click": "swaylock",
+  },
+  "custom/reboot": {
+    "format": "󰜉",
+    "tooltip-format": "Reboot System",
+    "tooltip": true,
+    "on-click": "reboot",
+  },
+  "custom/power": {
+    "format": "",
+    "tooltip-format": "Shutdown System",
+    "tooltip": true,
+    "on-click": "shutdown now",
+  },
+}
