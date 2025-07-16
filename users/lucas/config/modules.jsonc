@@ -93,7 +93,14 @@
     "format": "{icon}",
     "format-charging": "{capacity}% 󰂄 ",
     "format-alt": "{capacity}% {icon}",
-    "format-icons": ["󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"],
+    "format-icons": [
+      "󰁻",
+      "󰁼",
+      "󰁾",
+      "󰂀",
+      "󰂂",
+      "󰁹"
+    ],
   },
   // SECTION: Custom Modules
   // ------------------------
@@ -111,7 +118,7 @@
     "format": "󰍁",
     "tooltip-format": "Lock Screen",
     "tooltip": true,
-    "on-click": "swaylock",
+    "on-click": "hyprlock",
   },
   "custom/reboot": {
     "format": "󰜉",

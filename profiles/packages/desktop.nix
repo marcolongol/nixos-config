@@ -1,5 +1,9 @@
 # Desktop environment and applications profile
-{ lib, pkgs, config, ... }: {
+{ lib
+, pkgs
+, config
+, ...
+}: {
   # Desktop Applications
   environment.systemPackages = with pkgs; [
     # Essential applications
@@ -16,6 +20,7 @@
     nautilus
     catppuccin-sddm
     brightnessctl
+    pywal
 
     # Terminal emulators
     kitty
@@ -30,7 +35,7 @@
   };
 
   # Lock screen utility for Hyprland
-  programs.hyprlock = { enable = lib.mkDefault true; };
+  programs.hyprlock.enable = lib.mkDefault true;
 
   # XDG Desktop Portal
   xdg.portal = {
@@ -45,7 +50,7 @@
   services = {
     printing.enable = lib.mkDefault true;
     blueman.enable = lib.mkDefault true;
-    picom.enable = lib.mkDefault true; # Compositor for transparency and effects
+    hypridle.enable = lib.mkDefault true;
 
     # Display Manager Configuration
     displayManager = {

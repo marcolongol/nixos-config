@@ -36,6 +36,7 @@
     pfetch
     lshw
     coreutils
+    psmisc
 
     # Basic text processing
     ripgrep
