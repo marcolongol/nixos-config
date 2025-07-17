@@ -2,7 +2,7 @@
   plugins.toggleterm = {
     enable = true;
     settings = {
-      size = 60;
+      size = 80;
       hideNumbers = true;
       shadeFiletypes = [ "toggleterm" ];
       direction = "vertical";
