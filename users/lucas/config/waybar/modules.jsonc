@@ -12,9 +12,25 @@
       "*": 4,
     },
   },
+  "hyprland/window": {
+    "format": "{initialClass}",
+    "icon": true,
+    "icon-size": 19,
+    "seperate-outputs": true,
+    "rewrite": {
+      "Mozilla Firefox": "Firefox",
+      "(.*) Thunar": "Thunar",
+      "(.*)obs(.*)": "OBS",
+      "Spotify (.*)": "Spotify",
+      "discord(.*)": "Discord",
+      "Code": "VS Code",
+      "Docker Desktop": "Docker",
+      "alacritty": "Alacritty",
+    },
+  },
   "cpu": {
     "interval": 1,
-    "format": " {usage}%",
+    "format": "{usage}%  ",
     "max-length": 10,
     "states": {
       "good": 50,
@@ -24,12 +40,12 @@
   },
   "memory": {
     "interval": 30,
-    "format": "\uefc5 {}%",
+    "format": "{}% \uefc5 ",
     "max-length": 10,
     "tooltip-format": "{used}GB / {total}GB ({percentage}%)",
   },
   "disk": {
-    "format": " {percentage_used}%",
+    "format": "{percentage_used}%  ",
     "states": {
       "mounted": 0,
       "warning": 70,
@@ -39,7 +55,7 @@
   },
   "clock": {
     "interval": 1,
-    "format": " {:%H:%M}",
+    "format": "  {:%H:%M / %h %d}",
     "format-alt": "{:%A, %B %d, %Y (%R)}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
@@ -61,15 +77,29 @@
     },
   },
   "network": {
+    "format-wifi": " {icon}",
+    "format-ethernet": "󰈀",
+    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤢 ", "󰤨 "],
+    "format-disconnected": "󰪎",
+    "interval": 5,
+    "tooltip-format-wifi": " {bandwidthDownBytes} |  {bandwidthUpBytes} | {essid}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-right-click": "alacritty -e nmtui",
+  },
+  "network#speed": {
     "interval": 1,
-    "format-wifi": "󰤨",
-    "format-wifi-alt": "{signalStrength}% 󰤨",
-    "format-ethernet": "",
-    "format-disconnected": "",
-    "tooltip-format-disconnected": "Error",
-    "tooltip-format-wifi": "{essid} ({ifname})\n{ipaddr}\n{signalStrength}%\n{bandwidthDownBytes} ↓ {bandwidthUpBytes} ↑",
-    "tooltip-format-ethernet": "{ifname} 🖧 ",
-    "on-click-right": "alacritty -e nmtui",
+    "format": "{ifname}%%",
+    "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes}",
+    "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname} 󰌘",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "max-length": 22,
+    "min-length": 20,
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
   },
   "bluetooth": {
     "format-on": "󰂯",
@@ -86,26 +116,24 @@
   "battery": {
     "interval": 1,
     "states": {
-      "good": 95,
+      "good": 80,
       "warning": 30,
       "critical": 15,
     },
     "format": "{icon}",
-    "format-charging": "{capacity}% 󰂄 ",
     "format-alt": "{capacity}% {icon}",
-    "format-icons": [
-      "󰁻",
-      "󰁼",
-      "󰁾",
-      "󰂀",
-      "󰂂",
-      "󰁹"
-    ],
+    "format-charging": "{capacity}% 󰂄",
+    "format-icons": ["󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"],
   },
   // SECTION: Custom Modules
   // ------------------------
-  "custom/expand": {
-    "format": "",
+  "custom/trayicon": {
+    "format": "󱄅 ",
+    "tooltip": false,
+    "on-click": "rofi -show drun -show-icons",
+  },
+  "custom/separator": {
+    "format": " // ",
     "tooltip": false,
   },
   "custom/quit": {

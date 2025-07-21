@@ -10,7 +10,7 @@ import time
 import random
 import logging
 from pprint import pprint as pp
-from typing import Optional, List
+from typing import Optional
 
 logging.basicConfig(level=logging.INFO, format="[$levelname] $message", style="$")
 
@@ -27,6 +27,7 @@ VALID_TRANSITION_TYPES = [
     "any",
     "random",
 ]
+
 
 def main():
     parser = argparse.ArgumentParser(description="Control the swww wallpaper daemon.")
@@ -55,6 +56,7 @@ def main():
     # Execute the appropriate function based on the command
     args.func(args)
 
+
 def _info():
     info = {"daemon_running": _is_sww_daemon_running()}
     pp(info)
@@ -75,7 +77,9 @@ def _start_swww_daemon():
     if not shutil.which("swww-daemon"):
         logging.error("swww-daemon is not installed. Please install it first.")
         sys.exit(1)
-    subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.Popen(
+        ["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
     time.sleep(0.5)
 
 
@@ -93,11 +97,18 @@ def _set_wallpaper(mode: Optional[str] = "center"):
     wallpaper = _get_random_wallpaper()
     if wallpaper:
         logging.info(f"Setting wallpaper: {wallpaper} with mode: {mode}")
+        # check if wal is installed
+        if not shutil.which("wal"):
+            logging.error("wal is not installed. Please install it first.")
+            sys.exit(1)
         # check if swww is installed
         if not shutil.which("swww"):
             logging.error("swww is not installed. Please install it first.")
             sys.exit(1)
+        # run wal to generate colors
+        os.system(f"wal -i {wallpaper}")
         os.system(f"swww img {wallpaper} --transition-type {mode}")
+
     else:
         logging.error("No valid wallpaper found to set.")
 
@@ -117,6 +128,7 @@ def _get_random_wallpaper() -> Optional[str]:
         return None
     # return a random wallpaper
     return os.path.join(WALLPAPER_DIR, random.choice(wallpapers))
+
 
 if __name__ == "__main__":
     main()

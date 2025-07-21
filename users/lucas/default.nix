@@ -11,7 +11,13 @@
   home.persistence."/persist/home/${userConfig.name}" = lib.myLib.utils.mkHomePersistence {
     inherit osConfig;
     allowOther = true;
-    directories = [ ".config/1Password" ".mozilla" ".config/Code" "./config/remmina" ];
+    directories = [
+      ".config/1Password"
+      ".mozilla"
+      ".config/Code"
+      "./config/remmina"
+      "./.cache/wal"
+    ];
     files = [ ".zsh_history" ".local/share/zoxide/db.zo" ];
   };
 
