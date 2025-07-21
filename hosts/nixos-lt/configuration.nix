@@ -17,7 +17,8 @@
   powerManagement = {
     enable = true;
     # Let TLP handle CPU frequency scaling instead of setting a default governor
-    # cpuFreqGovernor = lib.mkDefault "powersave";
+    cpuFreqGovernor = "schedutil"; # Use schedutil for better performance on modern CPUs
+    powertop.enable = true; # Enable powertop for power management
   };
 
   # Laptop-specific services
@@ -27,6 +28,9 @@
 
     # Better laptop power management
     power-profiles-daemon.enable = false; # Disable if using TLP
+
+    # System76 Scheduler for better CPU scheduling on System76 hardware
+    system76-scheduler.enable = true;
 
     # upower for battery management
     upower.enable = true;
