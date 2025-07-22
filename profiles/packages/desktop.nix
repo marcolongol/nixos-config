@@ -10,6 +10,7 @@
     firefox
     gimp
     vlc
+    pavucontrol
 
     # Wayland desktop environment
     waybar
