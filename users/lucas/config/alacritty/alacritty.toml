@@ -1,3 +1,6 @@
+[general]
+import=["~/.cache/wal/colors-alacritty.toml"]
+
 [window]
 title = "Lucas's Terminal"
 opacity = 0.8
@@ -11,11 +14,3 @@ decorations_theme_variant = "dark"
 normal.family = "MesloLGS Nerd Font"
 normal.style = "Regular"
 size = 9.0
-
-[colors]
-primary.background = "#282c34"
-primary.foreground = "#abb2bf"
-cursor.background = "#528bff"
-cursor.foreground = "#ffffff"
-selection.background = "#3e4451"
-selection.foreground = "#ffffff"

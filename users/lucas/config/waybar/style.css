@@ -1,328 +1,444 @@
 @import url("../../.cache/wal/colors-waybar.css");
 
+/* ============================================================================
+ * SEMANTIC COLORS - Fixed pastel colors for status indicators (GTK syntax)
+ * ============================================================================ */
+
+@define-color success_color #90e0a3; /* Softer mint green for good/success states */
+@define-color warning_color #f4c79a; /* Warmer soft peach for warning states */
+@define-color danger_color #f5a3a3; /* Muted coral for critical/error states */
+@define-color info_color #a3c5f0; /* Soft periwinkle blue for info/charging states */
+@define-color neutral_color #b8bcc8; /* Muted gray for neutral/disabled states */
+
+/* ============================================================================
+ * BASE STYLES - Enhanced for better interactivity
+ * ============================================================================ */
+
 * {
-  font-family: JetBrains Mono Nerd Font;
-  min-height: 14px;
+  font-family: MesloLGS Nerd Font;
   font-size: 14px;
+  min-height: 14px;
   border: none;
   padding: 0;
   margin: 0;
   box-shadow: none;
-  background-color: @background;
+  background-color: transparent;
 }
 
-/* General Styling */
+window#waybar {
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 tooltip,
-menu,
-#workspaces,
-#clock,
-#wireplumber,
-#backlight,
-#bluetooth,
-#network,
-#battery,
-#custom-power {
+menu {
   padding: 7px 8px;
   margin: 0;
   border-radius: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  color: @foreground;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Tray */
+/* ============================================================================
+ * MODULE GROUP CONTAINERS
+ * ============================================================================ */
+
+.modules-left {
+  margin: 2px;
+  padding: 2px 6px;
+}
+
+.modules-center {
+  margin: 2px 8px;
+  padding: 3px 12px;
+}
+
+.modules-right {
+  margin: 2px;
+  padding: 2px 6px;
+}
+
+/* ============================================================================
+ * WORKSPACES
+ * ============================================================================ */
+
+#workspaces {
+  margin: 2px 4px;
+  padding: 2px;
+  opacity: 1;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+#workspaces button {
+  color: @foreground;
+  margin: 2px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.7;
+  min-width: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.active {
+  color: @color0;
+  background: linear-gradient(135deg, @color9, rgba(255, 255, 255, 0.9));
+  opacity: 1;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#workspaces button:hover {
+  color: @color9;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.08)
+  );
+  opacity: 1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================================================
+ * SYSTEM MONITORING - Enhanced grouped styling
+ * ============================================================================ */
+
+#cpu {
+  color: @foreground;
+  padding: 6px 12px 6px 16px;
+  margin-left: 4px;
+  border-radius: 8px 0 0 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 2px solid @color4;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
+}
+
+#memory {
+  color: @foreground;
+  padding: 6px 12px;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 2px solid @color3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
+  border-right: none;
+}
+
+#disk {
+  color: @foreground;
+  padding: 6px 16px 6px 12px;
+  margin-right: 4px;
+  border-radius: 0 8px 8px 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 2px solid @color5;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
+}
+
+#temperature.gpu {
+  color: @color2;
+  padding: 4px 8px;
+  margin-right: 2px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 2px solid @color2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 24px;
+}
+
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#temperature.gpu:hover {
+  color: @color9;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+/* CPU states for performance monitoring */
+#cpu.warning {
+  color: @warning_color;
+}
+
+#cpu.critical {
+  color: @danger_color;
+}
+
+/* Memory states for usage monitoring */
+#memory.warning {
+  color: @warning_color;
+}
+
+#memory.critical {
+  color: @danger_color;
+}
+
+/* Disk states for storage monitoring */
+#disk.warning {
+  color: @warning_color;
+}
+
+#disk.critical {
+  color: @danger_color;
+}
+
+/* ============================================================================
+ * NETWORK & CONNECTIVITY
+ * ============================================================================ */
+
+#network {
+  color: @success_color;
+  min-width: 20px;
+  padding: 4px 6px;
+  margin: 0 1px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#network.disconnected {
+  color: @danger_color;
+}
+
+#network.ethernet {
+  color: @info_color;
+}
+
+#network.speed {
+  color: @foreground;
+  min-width: 6px;
+  padding: 4px 6px;
+  margin: 0 1px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#bluetooth {
+  color: @info_color;
+  padding: 4px 6px;
+  margin: 0 1px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 18px;
+}
+
+#bluetooth.disabled {
+  color: @neutral_color;
+}
+
+#network:hover,
+#battery:hover,
+#network.speed:hover,
+#bluetooth:hover {
+  color: @color9;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+/* ============================================================================
+ * AUDIO & BRIGHTNESS
+ * ============================================================================ */
+
+#wireplumber,
+#backlight {
+  color: @foreground;
+  padding: 4px 6px;
+  margin: 0 1px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#wireplumber:hover,
+#backlight:hover {
+  color: @color9;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+/* ============================================================================
+ * BATTERY
+ * ============================================================================ */
+
+#battery {
+  color: @neutral_color;
+  min-width: 20px;
+  padding: 4px 6px;
+  margin: 0 1px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#battery.charging {
+  color: @info_color;
+}
+
+#battery.good:not(.charging) {
+  color: @success_color;
+}
+
+#battery.warning:not(.charging) {
+  color: @warning_color;
+}
+
+#battery.low:not(.charging) {
+  color: @danger_color;
+}
+
+#battery.critical:not(.charging) {
+  color: @danger_color;
+  background: rgba(254, 202, 202, 0.2);
+  animation: blink 0.75s linear infinite alternate;
+}
+
+@keyframes blink {
+  to {
+    color: @danger_color;
+    background: rgba(254, 202, 202, 0.4);
+  }
+}
+
+/* ============================================================================
+ * CLOCK & WINDOW - Enhanced centerpiece styling
+ * ============================================================================ */
+
+#clock {
+  color: @foreground;
+  padding: 8px 20px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#clock:hover {
+  color: @color9;
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+#window {
+  color: @foreground;
+  padding: 6px 10px;
+  margin: 0 4px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
+}
+
+/* ============================================================================
+ * CUSTOM MODULES
+ * ============================================================================ */
+
 #custom-trayicon {
   color: @foreground;
-  font-size: 26px;
-  padding: 5px;
+  font-size: 20px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  min-width: 24px;
 }
 
 #custom-trayicon:hover {
   color: @color9;
-  background: @background;
-  opacity: 1;
+  background: rgba(0, 0, 0, 0.25);
   transition: all 0.2s ease-in-out;
 }
 
 #custom-separator {
   color: @foreground;
-  padding: 0px 2px;
-  margin: 0px 2px;
+  padding: 0 4px;
+  margin: 0 2px;
   border-radius: 6px;
+  opacity: 0.5;
 }
 
-/* Workspace */
-#workspaces {
-  margin: 0;
-  margin-left: 2px;
-  padding: 0;
-  /* font-weight: bold; */
-  /* font-style: italic; */
-  opacity: 1;
-  font-size: 100px;
-  border-radius: 6px;
-}
-
-#workspaces button {
-  color: @foreground;
-  margin: 3px;
-  border-radius: 6px;
-  border: none;
-  transition: all 0.3s ease-in-out;
-  opacity: 0.8;
-}
-
-#workspaces button.active {
-  color: @color9;
-  background: @color9;
-  min-width: 20px;
-  opacity: 1;
-}
-
-#workspaces button:hover {
-  color: @color9;
-  background: @color0;
-  opacity: 1;
-  animation: none;
-}
-
-/* Cpu */
-#cpu {
-  color: @foreground;
-  padding: 0px 8px 0px 15px;
-  margin-left: 2px;
-  border-radius: 6px 0 0 6px;
-}
-
-#cpu:hover {
-  color: @color9;
-  background: @color0;
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-
-/* Memory */
-#memory {
-  color: @foreground;
-  padding: 0px 12px 0px 8px;
-  /* margin-right: 1px; */
-  border-radius: 0 6px 6px 0;
-}
-
-#memory:hover {
-  color: @color9;
-  background: @color0;
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-
-#disk {
-  color: @foreground;
-  padding: 0px 12px 0px 8px;
-  margin-right: 2px;
-  border-radius: 6px;
-}
-
-#disk:hover {
-  color: @color9;
-  background: @color0;
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-
-/* Network Speed */
-#network.speed {
-  color: @foreground;
-  /* background: @color5; */
-  /* padding: 0px 2px; */
-  min-width: 8px;
-  border-radius: 6px;
-}
-
-#network.speed:hover {
-  color: @color9;
-  background: @color0;
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-
-/* Clock */
-#clock {
-  padding: 0 15px;
-  color: @foreground;
-  border-radius: 6px;
-}
-
-#clock:hover {
-  color: @color9;
-  background: @color0;
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-
-/* Window Hyprland */
-window#waybar {
-  border-radius: 6px;
-  padding: 2px;
-  box-shadow: none;
-}
-
-#window {
-  color: @foreground;
-  padding: 6px;
-  margin: 0px 2px;
-}
-
-/* GPU or CPU Temp */
-#temperature.gpu {
-  padding: 0px 12px;
-  margin-right: 2px;
-  color: @color2;
-  border-radius: 6px;
-}
-
-/* Transparency */
 #custom-transparency {
-  font-size: 18px;
   color: @color9;
-  padding: 0px 10px;
+  font-size: 18px;
+  padding: 0 10px;
   margin-right: 2px;
   border-radius: 6px;
-  /* border-radius: 6px 0 0 6px; */
-  /* border-radius: 0 6px 6px 0; */
 }
 
-/* Audio and Brightness */
-#wireplumber,
-#backlight {
-  padding: 0 8px;
-  margin: 0 1px;
-  color: @foreground;
-  border-radius: 6px 6px;
+/* ============================================================================
+ * POWER CONTROLS - Enhanced drawer styling
+ * ============================================================================ */
+
+#group-power {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  padding: 2px;
+  margin: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-#bluetooth,
-#network {
-  color: @color5;
+#custom-power,
+#custom-lock,
+#custom-quit,
+#custom-reboot {
+  color: @color9;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
+  margin: 1px;
   border-radius: 6px;
-  margin: 0 1px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease-in-out;
+  min-width: 20px;
 }
 
-/* Wifi */
-#network {
-  min-width: 30px;
-  padding: 0 5px 0 2px;
-  /* margin: 0 2px; */
-  border-radius: 6px;
-  /* border-radius: 0 6px 6px 0; */
+#custom-power:hover,
+#custom-lock:hover,
+#custom-quit:hover,
+#custom-reboot:hover {
+  background: @color9;
+  color: @color0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Battery */
-#battery {
-  color: @color10;
-  min-width: 10px;
-  padding-left: 2px;
-  margin-right: 2px;
-  padding-right: 4px;
-  border-radius: 6px;
-}
+/* ============================================================================
+ * UNUSED MODULES (for future reference)
+ * ============================================================================ */
 
-#battery.charging {
-  color: @color2;
-  border-radius: 6px;
-}
-
-#battery.good:not(.charging) {
-  color: @color6;
-  border-radius: 6px;
-}
-
-#battery.warning:not(.charging) {
-  color: @color6; /* Text */
-  border-radius: 6px;
-}
-
-#battery.low:not(.charging) {
-  color: @color1;
-  border-radius: 6px;
-}
-
-#battery.critical:not(.charging) {
-  color: @color1; /* Red */
-  background: @color0;
-  animation-name: blink;
-  animation-duration: 0.75s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  border-radius: 6px;
-}
-
-@keyframes blink {
-  to {
-    color: @color1; /* Red */
-    background: @color7; /* Light text */
-  }
-}
-
-/* Some Modules that I am not using right now */
 #custom-cava {
   color: @color5;
-  border-left: 0px;
-  border-right: 0px;
-  padding: 6px;
-  font-family: "bargraph";
   background: @color0;
-  margin: 0px 2px;
+  font-family: "bargraph";
+  padding: 6px;
+  margin: 0 2px;
+  border-left: 0;
+  border-right: 0;
 }
 
 #custom-launcher {
+  color: @color9;
+  background: @color0;
   font-size: 18px;
-  transition: none;
-  padding: 0px 10px;
+  padding: 0 10px;
   margin-right: 2px;
-  background: @color0;
-  color: @color9;
   border-radius: 0 6px 6px 0;
-}
-
-#bluetooth {
-  color: @color5;
-  margin: 0 2px;
-  border-radius: 6px;
-}
-
-#group-power {
-  font-size: 24px;
-  color: @color9;
-  padding: 0px 10px;
-}
-
-#custom-power {
-  color: @color9;
-  padding: 0px 10px;
-  margin-right: 2px;
-  border-radius: 6px;
-  background: @color0;
-}
-
-#custom-lock {
-  color: @color9;
-  padding: 0px 10px;
-  margin-right: 2px;
-  border-radius: 6px;
-  background: @color0;
-}
-
-#custom-quit {
-  color: @color9;
-  padding: 0px 10px;
-  margin-right: 2px;
-  border-radius: 6px;
-  background: @color0;
-}
-
-#custom-reboot {
-  color: @color9;
-  padding: 0px 10px;
-  margin-right: 2px;
-  border-radius: 6px;
-  background: @color0;
+  transition: none;
 }

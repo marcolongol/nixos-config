@@ -107,6 +107,9 @@ def _set_wallpaper(mode: Optional[str] = "center"):
             sys.exit(1)
         # run wal to generate colors
         os.system(f"wal -i {wallpaper}")
+        # reload Hyprland to apply new colors
+        os.system("hyprctl reload")
+        # set wallpaper
         os.system(f"swww img {wallpaper} --transition-type {mode}")
 
     else:

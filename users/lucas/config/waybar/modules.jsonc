@@ -1,6 +1,4 @@
 {
-  // SECTION: Vanilla Modules
-  // -------------------------
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
@@ -37,12 +35,18 @@
       "warning": 70,
       "critical": 90,
     },
+    "on-click": "alacritty -e btop"
   },
   "memory": {
     "interval": 30,
     "format": "{}% \uefc5 ",
     "max-length": 10,
     "tooltip-format": "{used}GB / {total}GB ({percentage}%)",
+    "states": {
+      "warning": 80,
+      "critical": 90
+    },
+    "on-click": "alacritty -e btop"
   },
   "disk": {
     "format": "{percentage_used}%  ",
@@ -84,7 +88,7 @@
     "interval": 5,
     "tooltip-format-wifi": " {bandwidthDownBytes} |  {bandwidthUpBytes} | {essid}",
     "tooltip-format-disconnected": "Disconnected",
-    "on-right-click": "alacritty -e nmtui",
+    "on-click": "~/.local/bin/rofi-wifi.py",
   },
   "network#speed": {
     "interval": 1,
@@ -111,7 +115,7 @@
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
     "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
-    "on-click-right": "blueman-manager",
+    "on-click": "blueman-manager",
   },
   "battery": {
     "interval": 1,
@@ -159,5 +163,45 @@
     "tooltip-format": "Shutdown System",
     "tooltip": true,
     "on-click": "shutdown now",
+  },
+  // SECTION: Audio & Brightness Modules
+  // ------------------------------------
+  "wireplumber": {
+    "interval": 1,
+    "format": "{volume}% {icon}",
+    "format-muted": "󰖁 {volume}%",
+    "format-icons": {
+      "headphone": ["󰋋", "󰋋", "󰋋"],
+      "hands-free": ["󰋋", "󰋋", "󰋋"],
+      "headset": ["󰋋", "󰋋", "󰋋"],
+      "phone": ["󰄜", "󰄜", "󰄜"],
+      "portable": ["󰄜", "󰄜", "󰄜"],
+      "car": ["󰄞", "󰄞", "󰄞"],
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "states": {
+      "muted": 0,
+      "low": 30,
+      "medium": 60,
+      "high": 100
+    },
+    "scroll-step": 2.0,
+    "max-volume": 150.0,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    "tooltip-format": "{node_name}: {volume}%"
+  },
+  "backlight": {
+    "interval": 2,
+    "format": "{percent}% {icon}",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "states": {
+      "low": 25,
+      "medium": 50,
+      "high": 75
+    },
+    "scroll-step": 5.0,
+    "on-click": "brightnessctl set 50%",
+    "tooltip-format": "Brightness: {percent}%"
   },
 }
