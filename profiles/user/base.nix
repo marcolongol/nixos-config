@@ -61,7 +61,10 @@
   xdg.enable = lib.mkDefault true;
 
   # Basic environment variables
-  home.sessionVariables = lib.mkDefault { PAGER = "less"; };
+  home.sessionVariables = {
+    PAGER = "less";
+    GTK_THEME = "Tokyonight-Dark";
+  };
 
   home.pointerCursor = {
     gtk.enable = true;
@@ -73,8 +76,8 @@
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Dark";
+      package = pkgs.tokyonight-gtk-theme;
+      name = "Tokyonight-Dark";
     };
     iconTheme = {
       package = pkgs.adwaita-icon-theme;
@@ -83,6 +86,9 @@
     font = {
       name = "Sans";
       size = 11;
+    };
+    gtk3 = {
+      extraConfig.gtk-application-prefer-dark-theme = true;
     };
   };
 }
