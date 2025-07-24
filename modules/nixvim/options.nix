@@ -1,6 +1,11 @@
 {
   globals.mapleader = " ";
 
+  clipboard = {
+    providers.wl-copy.enable = true;
+    register = "unnamedplus";
+  };
+
   # Editor options
   opts = {
     # Line numbers
@@ -37,7 +42,6 @@
 
     # Other useful options
     mouse = "a";
-    clipboard = "unnamedplus";
     undofile = true;
     swapfile = false;
     backup = false;

@@ -1,6 +1,10 @@
 # Common packages shared across all systems
 # Minimal essential tools for all systems
-{ lib, pkgs, config, ... }: {
+{ lib
+, pkgs
+, config
+, ...
+}: {
   # Nix settings for package management
   nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
 
@@ -28,7 +32,6 @@
     unzip
     file
     openssh
-    xclip
     age
     sops
 
@@ -48,7 +51,6 @@
     fwupd.enable = lib.mkDefault true;
     # SMART monitoring for hard drives
     smartd.enable = lib.mkDefault true;
-
   };
 
   hardware = {
