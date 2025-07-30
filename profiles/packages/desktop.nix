@@ -11,6 +11,7 @@
     gimp
     vlc
     pavucontrol
+    thunderbird
 
     # Wayland desktop environment
     waybar

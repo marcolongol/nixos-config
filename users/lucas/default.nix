@@ -51,6 +51,7 @@
     yubikey-manager
     yubikey-personalization
     yubikey-touch-detector
+    freecad
   ];
 
   # Personal git configuration
