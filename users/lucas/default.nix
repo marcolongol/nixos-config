@@ -13,9 +13,9 @@
     allowOther = true;
     directories = [
       ".config/1Password"
-      ".mozilla"
+      ".config/remmina"
       ".config/Code"
-      "./config/remmina"
+      ".mozilla"
       "./.cache/wal"
     ];
     files = [ ".zsh_history" ".local/share/zoxide/db.zo" ];
