@@ -10,6 +10,9 @@ let
     };
   });
 
+  # home-manager library
+  hmLib = inputs.home-manager.lib;
+
   # hosts: directory containing host-specific configurations
   hostsPath = ../hosts;
   hosts = {
@@ -47,4 +50,4 @@ let
   utils = import ./utils.nix { inherit inputs lib; };
   validations = import ./validations.nix { inherit lib; };
 
-in { inherit hosts users profiles assetsDir utils validations; }
+in { inherit hmLib hosts users profiles assetsDir utils validations; }

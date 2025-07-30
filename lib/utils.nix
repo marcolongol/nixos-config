@@ -180,7 +180,7 @@
     then {
       inherit allowOther;
       directories =
-        [ "Downloads" "Documents" "Pictures" "Work" "Personal" ".ssh" ]
+        [ "Pictures" "Work" "Personal" ".ssh" ]
         ++ directories;
       files = [ ] ++ files;
     }

@@ -72,4 +72,34 @@
 
   # Network Configuration
   networking.networkmanager.enable = lib.mkDefault true;
+
+  # Mount NFS file systems
+  fileSystems =
+    let
+      device = "10.0.0.4:/volume1";
+      fsType = "nfs";
+      options = [
+        "rw"
+        "hard"
+        "nfsvers=4"
+        "rsize=1048576"
+        "wsize=1048576"
+        "timeo=5"
+        "retrans=3"
+        "noatime"
+        "async"
+        "tcp"
+      ];
+      nfsMounts = [ "Backup" "Documents" "Downloads" "K8s" "Media" "Shared" ];
+      nfsMountAttrs = builtins.listToAttrs (
+        map (name: {
+          name = "/mnt/${name}";
+          value = {
+            inherit options fsType;
+            device = "${device}/${name}";
+          };
+        }) nfsMounts
+      );
+    in
+        nfsMountAttrs;
 }

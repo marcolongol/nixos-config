@@ -4,7 +4,18 @@
 , userConfig
 , osConfig ? { }
 , ...
-}: {
+}:
+let
+  nfsLinks = [
+    "Documents"
+    "Downloads"
+    "Media"
+    "Backup"
+    "K8s"
+    "Shared"
+  ];
+in
+{
   imports = [ inputs.impermanence.homeManagerModules.impermanence ];
 
   # Base user profile for all users
@@ -13,6 +24,18 @@
 
   # Home directory management
   home.stateVersion = "25.05";
+
+  # Activation Scripts
+  home.activation.nfsSymlinks = lib.myLib.hmLib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    for name in ${lib.concatStringsSep " " (map (x: ''"${x}"'') nfsLinks)}; do
+      target="/mnt/$name"
+      link="$HOME/$name"
+      if ! [ -L "$link" ] || [ "$(readlink "$link")" != "$target" ]; then
+        rm -rf "$link"
+        ln -s "$target" "$link"
+      fi
+    done
+  '';
 
   # Copy wallpapers to user's Pictures directory
   home.file = {
