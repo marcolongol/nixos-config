@@ -53,6 +53,7 @@
     yubikey-touch-detector
     freecad
     qgis
+    gdal
   ];
 
   # Personal git configuration
