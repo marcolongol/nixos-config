@@ -43,23 +43,35 @@
     };
   };
 
-  outputs = { self, flake-parts, nixpkgs, systems, ... }@inputs:
+  outputs =
+    { self
+    , flake-parts
+    , nixpkgs
+    , systems
+    , ...
+    } @ inputs:
     let
       inherit (self) outputs;
       lib = import ./lib { inherit inputs; };
-    in flake-parts.lib.mkFlake { inherit inputs; } {
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import systems;
       imports = [
         inputs.mission-control.flakeModule
         inputs.flake-root.flakeModule
         ./tasks
       ];
-      perSystem = { system, config, pkgs, ... }: {
-        _module.args.pkgs = lib.utils.mkPkgsWithSystem system;
-        devShells.default = import ./shell.nix { inherit config pkgs; };
-        mission-control = { wrapperName = "run"; };
-        formatter = pkgs.alejandra;
-      };
+      perSystem =
+        { system
+        , config
+        , pkgs
+        , ...
+        }: {
+          _module.args.pkgs = lib.utils.mkPkgsWithSystem system;
+          devShells.default = import ./shell.nix { inherit config pkgs; };
+          mission-control = { wrapperName = "run"; };
+          formatter = pkgs.alejandra;
+        };
       flake = {
         inherit outputs;
         # SECTION: Nixos Configurations
@@ -69,22 +81,26 @@
           nixos-wsl = lib.utils.mkSystem {
             hostname = "nixos-wsl";
             profiles = [ "development" "security" ];
-            users = [{
-              name = "lucas";
-              profiles = [ "admin" "developer" ];
-              extraGroups = [ "wheel" "docker" ];
-            }];
+            users = [
+              {
+                name = "lucas";
+                profiles = [ "admin" "developer" ];
+                extraGroups = [ "wheel" "docker" ];
+              }
+            ];
             extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];
           };
           # nixos-lt: NixOS configuration for my laptop
           nixos-lt = lib.utils.mkSystem {
             hostname = "nixos-lt";
             profiles = [ "desktop" "development" "security" ];
-            users = [{
-              name = "lucas";
-              profiles = [ "admin" "developer" ];
-              extraGroups = [ "wheel" "docker" ];
-            }];
+            users = [
+              {
+                name = "lucas";
+                profiles = [ "admin" "developer" ];
+                extraGroups = [ "wheel" "docker" ];
+              }
+            ];
             extraModules = [ ./modules/nvidia ];
           };
           # nixos-livecd: NixOS configuration for live CD image
