@@ -52,6 +52,7 @@
     yubikey-personalization
     yubikey-touch-detector
     freecad
+    qgis
   ];
 
   # Personal git configuration
