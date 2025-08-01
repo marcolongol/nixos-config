@@ -34,6 +34,11 @@
     openssh
     age
     sops
+    p7zip
+    zip
+    unzip
+    xz
+    zstd
 
     # System information and utilities
     pfetch
@@ -92,14 +97,16 @@
       ];
       nfsMounts = [ "Backup" "Documents" "Downloads" "K8s" "Media" "Shared" ];
       nfsMountAttrs = builtins.listToAttrs (
-        map (name: {
-          name = "/mnt/${name}";
-          value = {
-            inherit options fsType;
-            device = "${device}/${name}";
-          };
-        }) nfsMounts
+        map
+          (name: {
+            name = "/mnt/${name}";
+            value = {
+              inherit options fsType;
+              device = "${device}/${name}";
+            };
+          })
+          nfsMounts
       );
     in
-        nfsMountAttrs;
+    nfsMountAttrs;
 }

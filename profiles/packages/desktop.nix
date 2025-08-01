@@ -20,6 +20,7 @@
     swww
     rofi-wayland
     nautilus
+    file-roller
     catppuccin-sddm
     brightnessctl
     pywal
