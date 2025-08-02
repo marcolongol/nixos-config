@@ -45,6 +45,7 @@
     lshw
     coreutils
     psmisc
+    ncdu
 
     # Basic text processing
     ripgrep
