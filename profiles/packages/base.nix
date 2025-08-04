@@ -57,6 +57,11 @@
     fwupd.enable = lib.mkDefault true;
     # SMART monitoring for hard drives
     smartd.enable = lib.mkDefault true;
+
+    # USB device auto-mount and mgmt
+    udisks2.enable = lib.mkDefault true;
+    gvfs.enable = lib.mkDefault true;
+    devmon.enable = lib.mkDefault true;
   };
 
   hardware = {
