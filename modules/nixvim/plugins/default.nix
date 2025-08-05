@@ -20,6 +20,9 @@
     # copilot-vim.enable = true;
     # copilot-chat.enable = true;
 
+    # Claude
+    claude-code.enable = true;
+
     # Colorizer
     colorizer.enable = true;
 
