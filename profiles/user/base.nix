@@ -47,12 +47,7 @@ in
 
   # Essential packages for all users
   home.packages = with pkgs; [
-    # Basic CLI tools
-    curl
-    wget
-    tree
-    file
-    unzip
+    # ...
   ];
 
   programs.home-manager.enable = lib.mkDefault true;

@@ -29,7 +29,6 @@
     vim
     htop
     tree
-    unzip
     file
     openssh
     age
