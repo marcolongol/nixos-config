@@ -19,7 +19,7 @@
       ".thunderbird"
       "./.cache/wal"
     ];
-    files = [ ".zsh_history" ".local/share/zoxide/db.zo" ];
+    files = [ ".zsh_history" ".local/share/zoxide/db.zo" ".kube/config" ];
   };
 
   home.file = {
