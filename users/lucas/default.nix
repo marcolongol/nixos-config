@@ -16,6 +16,7 @@
       ".config/remmina"
       ".config/Code"
       ".mozilla"
+      ".thunderbird"
       "./.cache/wal"
     ];
     files = [ ".zsh_history" ".local/share/zoxide/db.zo" ];
