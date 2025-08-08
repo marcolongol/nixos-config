@@ -43,7 +43,7 @@
   # XDG Desktop Portal
   xdg.portal = {
     enable = lib.mkDefault true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-wlr ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
   };
 
   # Environment Variables
@@ -66,8 +66,6 @@
       };
     };
 
-    # Disable X11 to force Wayland
-    xserver.enable = lib.mkDefault false;
   };
 
   # Audio System
