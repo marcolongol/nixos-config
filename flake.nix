@@ -84,7 +84,7 @@
             users = [
               {
                 name = "lucas";
-                profiles = [ "admin" "developer" ];
+                profiles = [ "admin" "developer" "gaming" ];
                 extraGroups = [ "wheel" "docker" ];
               }
             ];
@@ -101,7 +101,10 @@
                 extraGroups = [ "wheel" "docker" ];
               }
             ];
-            extraModules = [ ./modules/nvidia ];
+            extraModules = [
+              ./modules/nvidia
+              ./modules/gaming-specialisation.nix
+            ];
           };
           # nixos-livecd: NixOS configuration for live CD image
           nixos-livecd = lib.utils.mkSystem {

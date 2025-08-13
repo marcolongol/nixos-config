@@ -70,4 +70,7 @@
 
   # System-level impermanence configuration
   environment.persistence."/persist" = lib.myLib.utils.mkSystemPersistence { };
+
+  # Enable gaming specialisation for this host
+  gaming.specialisation.enable = true;
 }
