@@ -14,14 +14,16 @@
     directories = [
       ".config/1Password"
       ".config/remmina"
+      ".local/share/remmina"
       ".config/github-copilot"
-      ".config/Code"
       ".claude"
+      ".config/Code"
       ".mozilla"
       ".thunderbird"
-      "./.cache/wal"
+      ".cache/wal"
       ".local/share/nvim"
       ".local/state/nvim"
+      ".local/share/Steam"
     ];
     files = [ ".zsh_history" ".local/share/zoxide/db.zo" ".kube/config" ".claude.json" ];
   };
