@@ -84,7 +84,7 @@
             users = [
               {
                 name = "lucas";
-                profiles = [ "admin" "developer" "gaming" ];
+                profiles = [ "admin" "developer" ];
                 extraGroups = [ "wheel" "docker" ];
               }
             ];
@@ -98,7 +98,7 @@
               {
                 name = "lucas";
                 profiles = [ "admin" "developer" ];
-                extraGroups = [ "wheel" "docker" ];
+                extraGroups = [ "wheel" "docker" "gamemode" ];
               }
             ];
             extraModules = [

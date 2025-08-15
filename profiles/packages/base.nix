@@ -74,6 +74,27 @@
   # Sudo configuration
   security.sudo.wheelNeedsPassword = lib.mkDefault false;
 
+  # PAM limits - increase file descriptor limits for all users
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "2097152";
+    }
+    {
+      domain = "*";
+      type = "hard";
+      item = "nofile";
+      value = "2097152";
+    }
+  ];
+
+  # SystemD user service limits (systemd ignores PAM limits by design)
+  systemd.user.extraConfig = ''
+    DefaultLimitNOFILE=2097152:2097152
+  '';
+
   # Fuse
   programs.fuse.userAllowOther = lib.mkDefault true;
 
