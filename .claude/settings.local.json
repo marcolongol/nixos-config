@@ -16,7 +16,11 @@
       "Bash(hypridle:*)",
       "WebFetch(domain:wiki.hypr.land)",
       "WebFetch(domain:mynixos.com)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "WebFetch(domain:docs.gtk.org)",
+      "Bash(sensors:*)",
+      "Bash(nix-shell:*)",
+      "Bash(nvidia-smi:*)"
     ],
     "deny": []
   }
