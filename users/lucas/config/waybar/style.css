@@ -16,8 +16,8 @@
 
 * {
   font-family: MesloLGS Nerd Font;
-  font-size: 14px;
-  min-height: 14px;
+  font-size: 12px;
+  min-height: 12px;
   border: none;
   padding: 0;
   margin: 0;
@@ -46,18 +46,18 @@ menu {
  * ============================================================================ */
 
 .modules-left {
-  margin: 2px;
-  padding: 2px 6px;
+  margin: 1px;
+  padding: 1px 4px;
 }
 
 .modules-center {
-  margin: 2px 8px;
-  padding: 3px 12px;
+  margin: 1px 6px;
+  padding: 2px 8px;
 }
 
 .modules-right {
-  margin: 2px;
-  padding: 2px 6px;
+  margin: 1px;
+  padding: 1px 4px;
 }
 
 /* ============================================================================
@@ -119,8 +119,8 @@ menu {
 
 #cpu {
   color: @foreground;
-  padding: 6px 12px 6px 16px;
-  margin-left: 4px;
+  padding: 4px 8px 4px 10px;
+  margin-left: 2px;
   border-radius: 8px 0 0 8px;
   background: rgba(0, 0, 0, 0.5);
   border-top: 2px solid @color4;
@@ -130,7 +130,7 @@ menu {
 
 #memory {
   color: @foreground;
-  padding: 6px 12px;
+  padding: 4px 8px;
   border-radius: 0;
   background: rgba(0, 0, 0, 0.5);
   border-top: 2px solid @color3;
@@ -141,11 +141,33 @@ menu {
 
 #disk {
   color: @foreground;
-  padding: 6px 16px 6px 12px;
-  margin-right: 4px;
-  border-radius: 0 8px 8px 0;
+  padding: 4px 8px;
+  border-radius: 0;
   background: rgba(0, 0, 0, 0.5);
   border-top: 2px solid @color5;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
+  border-right: none;
+}
+
+#temperature {
+  color: @foreground;
+  padding: 4px 8px;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 2px solid @color2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
+  border-right: none;
+}
+
+#custom-gpu-temp {
+  color: @foreground;
+  padding: 4px 10px 4px 8px;
+  margin-right: 2px;
+  border-radius: 0 8px 8px 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 2px solid @color6;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-left: none;
 }
@@ -164,7 +186,8 @@ menu {
 #cpu:hover,
 #memory:hover,
 #disk:hover,
-#temperature.gpu:hover {
+#temperature:hover,
+#custom-gpu-temp:hover {
   color: @color9;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -196,6 +219,18 @@ menu {
 
 #disk.critical {
   color: @danger_color;
+}
+
+/* Temperature states for thermal monitoring */
+#temperature.warning,
+#temperature.nvme.warning {
+  color: @warning_color;
+}
+
+#temperature.critical,
+#temperature.nvme.critical {
+  color: @danger_color;
+  animation: blink 0.75s linear infinite alternate;
 }
 
 /* ============================================================================
@@ -270,6 +305,32 @@ menu {
 
 #wireplumber:hover,
 #backlight:hover {
+  color: @color9;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+/* ============================================================================
+ * IDLE INHIBITOR
+ * ============================================================================ */
+
+#idle_inhibitor {
+  color: @neutral_color;
+  min-width: 20px;
+  padding: 4px 6px;
+  margin: 0 1px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#idle_inhibitor.activated {
+  color: @warning_color;
+  background: rgba(244, 199, 154, 0.1);
+}
+
+#idle_inhibitor:hover {
   color: @color9;
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
