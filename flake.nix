@@ -99,6 +99,7 @@
                 name = "lucas";
                 profiles = [ "admin" "developer" ];
                 extraGroups = [ "wheel" "docker" "gamemode" ];
+                hashedPassword = "$6$lEDg7CiI8BOZJT5Z$Y0EZfcycucVYKPm1/GeBIKEJFZvAQz1/cYtX27Ia55IsfvUhuZU3vSdw8X5MeJlKnTokfQH5s9j7qMr2s00pc1";
               }
             ];
             extraModules = [

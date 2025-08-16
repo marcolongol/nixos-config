@@ -46,6 +46,15 @@ let
           You can set this to a secure password or leave it empty for no password.
         '';
       };
+      hashedPassword = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = ''
+          Hashed password for the user. Takes precedence over initialPassword.
+          Generate with: mkpasswd -m sha-512
+          This is the secure way to set passwords that persists with impermanence.
+        '';
+      };
     };
   };
 in
@@ -88,7 +97,8 @@ in
           isNormalUser = true;
           description = userConfig.name;
           extraGroups = userConfig.extraGroups;
-          initialPassword = userConfig.initialPassword;
+          hashedPassword = userConfig.hashedPassword;
+          initialPassword = lib.mkIf (userConfig.hashedPassword == null) userConfig.initialPassword;
         };
       })
       cfg.enable);
