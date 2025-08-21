@@ -12,6 +12,8 @@
     vlc
     pavucontrol
     thunderbird
+    grim
+    slurp
 
     # Wayland desktop environment
     waybar
@@ -65,7 +67,6 @@
         package = pkgs.kdePackages.sddm;
       };
     };
-
   };
 
   # Audio System
