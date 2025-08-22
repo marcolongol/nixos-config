@@ -9,6 +9,11 @@ on:
     paths:
       - "**.nix"
       - flake.lock
+
+env:
+  OP_CONNECT_HOST: ${{ secrets.OP_CONNECT_HOST }}
+  OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
+
 jobs:
   check_flakes:
     runs-on: ubuntu-latest
