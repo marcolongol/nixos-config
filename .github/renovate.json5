@@ -43,14 +43,12 @@
     }
   ],
   
-  // Run twice per week
-  "schedule": [
-    "before 6am on monday",
-    "before 6am on thursday"
-  ],
-  
   "timezone": "America/Los_Angeles",
   "labels": ["dependencies"],
   "branchPrefix": "renovate/",
   "platformCommit": "enabled",
+  
+  // Remove rate limiting
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0
 }
