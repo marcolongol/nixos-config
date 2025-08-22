@@ -26,6 +26,7 @@
   };
 
   extraConfigLua = ''
-    local parser_config = require'nvim-treesitter.parsers'.get_parser_configs()
+    -- Register treesitter highlighting for tiltfile filetype
+    vim.treesitter.language.register('python', 'tiltfile')
   '';
 }

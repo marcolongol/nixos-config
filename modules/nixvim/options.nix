@@ -85,5 +85,15 @@
             vim.opt.listchars = listchars
         end,
     })
+
+    -- Tiltfile filetype detection
+    vim.filetype.add({
+      filename = {
+        ['Tiltfile'] = 'tiltfile',
+      },
+      pattern = {
+        ['.*%.tiltfile'] = 'tiltfile',
+      }
+    })
   '';
 }

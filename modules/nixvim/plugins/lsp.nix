@@ -80,6 +80,7 @@
         installCargo = false;
         installRustc = false;
       };
+      tilt_ls.enable = true;
       ts_ls.enable = true;
       eslint.enable = true;
       pyright.enable = true;
