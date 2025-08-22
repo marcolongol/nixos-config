@@ -33,6 +33,12 @@
     go-task
     k9s
     kubectl
+    claude-code
+    pnpm
+    tilt
+    k3d
+    kubernetes-helm
+    gh
 
     # System analysis
     btop
