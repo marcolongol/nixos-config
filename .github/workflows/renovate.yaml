@@ -6,6 +6,11 @@ on:
     - cron: '0 6 * * 1,4'
   workflow_dispatch:
     inputs:
+      dryRun:
+        description: 'Run in dry-run mode'
+        type: boolean
+        default: false
+        required: false
       logLevel:
         description: 'Override default log level'
         required: false
@@ -56,3 +61,7 @@ jobs:
           renovate-version: latest
         env:
           LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
+          RENOVATE_AUTODISCOVER: true
+          RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
+          RENOVATE_DRY_RUN: "${{ inputs.dryRun }}"
+          RENOVATE_INTERNAL_CHECKS_FILTER: strict
