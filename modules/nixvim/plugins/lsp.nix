@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{lib, ...}: {
   # vim.lsp
   lsp = {
     inlayHints.enable = true;
@@ -30,13 +30,13 @@
       {
         action =
           lib.nixvim.mkRaw
-            "function() vim.diagnostic.jump({ count=-1, float=true }) end";
+          "function() vim.diagnostic.jump({ count=-1, float=true }) end";
         key = "[d";
       }
       {
         action =
           lib.nixvim.mkRaw
-            "function() vim.diagnostic.jump({ count=1, float=true }) end";
+          "function() vim.diagnostic.jump({ count=1, float=true }) end";
         key = "]d";
       }
       {
@@ -65,9 +65,9 @@
   #   };
   # };
   # lspkind
-  plugins.lspkind = { enable = true; };
+  plugins.lspkind = {enable = true;};
   # lsp-format
-  plugins.lsp-format = { enable = true; };
+  plugins.lsp-format = {enable = true;};
   # nvim-lsp
   plugins.lsp = {
     enable = true;
@@ -78,7 +78,7 @@
       statix.enable = true;
       starlark_rust = {
         enable = true;
-        filetypes = [ "tiltfile" ];
+        filetypes = ["tiltfile"];
       };
       rust_analyzer = {
         enable = true;

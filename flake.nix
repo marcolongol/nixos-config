@@ -19,7 +19,7 @@
 
     # impermanence - NixOS module for managing ephemeral systems
     # https://github.com/nix-community/impermanence
-    impermanence = { url = "github:nix-community/impermanence"; };
+    impermanence = {url = "github:nix-community/impermanence";};
 
     # disko - Declarative disk partitioning
     # https://github.com/nix-community/disko
@@ -43,35 +43,33 @@
     };
   };
 
-  outputs =
-    { self
-    , flake-parts
-    , nixpkgs
-    , systems
-    , ...
-    } @ inputs:
-    let
-      inherit (self) outputs;
-      lib = import ./lib { inherit inputs; };
-    in
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = {
+    self,
+    flake-parts,
+    systems,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    lib = import ./lib {inherit inputs;};
+  in
+    flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
       imports = [
         inputs.mission-control.flakeModule
         inputs.flake-root.flakeModule
         ./tasks
       ];
-      perSystem =
-        { system
-        , config
-        , pkgs
-        , ...
-        }: {
-          _module.args.pkgs = lib.utils.mkPkgsWithSystem system;
-          devShells.default = import ./shell.nix { inherit config pkgs; };
-          mission-control = { wrapperName = "run"; };
-          formatter = pkgs.alejandra;
-        };
+      perSystem = {
+        system,
+        config,
+        pkgs,
+        ...
+      }: {
+        _module.args.pkgs = lib.utils.mkPkgsWithSystem system;
+        devShells.default = import ./shell.nix {inherit config pkgs;};
+        mission-control = {wrapperName = "run";};
+        formatter = pkgs.alejandra;
+      };
       flake = {
         inherit outputs;
         # SECTION: Nixos Configurations
@@ -80,25 +78,25 @@
           # nixos-wsl: NixOS configuration for WSL (Windows Subsystem for Linux)
           nixos-wsl = lib.utils.mkSystem {
             hostname = "nixos-wsl";
-            profiles = [ "development" "security" ];
+            profiles = ["development" "security"];
             users = [
               {
                 name = "lucas";
-                profiles = [ "admin" "developer" ];
-                extraGroups = [ "wheel" "docker" ];
+                profiles = ["admin" "developer"];
+                extraGroups = ["wheel" "docker"];
               }
             ];
-            extraModules = [ inputs.nixos-wsl.nixosModules.wsl ];
+            extraModules = [inputs.nixos-wsl.nixosModules.wsl];
           };
           # nixos-lt: NixOS configuration for my laptop
           nixos-lt = lib.utils.mkSystem {
             hostname = "nixos-lt";
-            profiles = [ "desktop" "development" "security" ];
+            profiles = ["desktop" "development" "security"];
             users = [
               {
                 name = "lucas";
-                profiles = [ "admin" "developer" ];
-                extraGroups = [ "wheel" "docker" "gamemode" ];
+                profiles = ["admin" "developer"];
+                extraGroups = ["wheel" "docker" "gamemode"];
                 hashedPassword = "$6$lEDg7CiI8BOZJT5Z$Y0EZfcycucVYKPm1/GeBIKEJFZvAQz1/cYtX27Ia55IsfvUhuZU3vSdw8X5MeJlKnTokfQH5s9j7qMr2s00pc1";
               }
             ];
@@ -110,7 +108,7 @@
           # nixos-livecd: NixOS configuration for live CD image
           nixos-livecd = lib.utils.mkSystem {
             hostname = "nixos-livecd";
-            profiles = [ "livecd" ];
+            profiles = ["livecd"];
             extraModules = [
               inputs.nixos-generators.nixosModules.all-formats
               ./modules/image-formats.nix
@@ -124,7 +122,7 @@
           lucas = lib.utils.mkHome {
             user = {
               name = "lucas";
-              profiles = [ "admin" "developer" ];
+              profiles = ["admin" "developer"];
             };
           };
         };

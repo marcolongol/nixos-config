@@ -1,9 +1,7 @@
-{ ... }:
-
+{...}:
 # Image Building Tasks
-
 {
-  perSystem = { pkgs, ... }: {
+  perSystem = {pkgs, ...}: {
     mission-control.scripts = {
       "build-iso" = {
         description = "Build NixOS Live ISO image";
@@ -12,7 +10,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-iso";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building NixOS Live ISO..."
@@ -29,7 +27,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-install-iso";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building NixOS Installation ISO..."
@@ -46,7 +44,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-vm";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building VM image (QCOW2)..."
@@ -63,7 +61,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-vmware";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building VMware image..."
@@ -80,7 +78,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-virtualbox";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building VirtualBox image..."
@@ -97,7 +95,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-cloud-aws";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building AWS AMI image..."
@@ -114,7 +112,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-cloud-gce";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building Google Cloud Engine image..."
@@ -131,7 +129,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-cloud-azure";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building Microsoft Azure image..."
@@ -148,7 +146,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-cloud-do";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building DigitalOcean image..."
@@ -165,7 +163,7 @@
         exec = pkgs.writeShellApplication {
           name = "build-all-images";
 
-          runtimeInputs = [ pkgs.nixos-generators pkgs.git ];
+          runtimeInputs = [pkgs.nixos-generators pkgs.git];
 
           text = ''
             echo "Building all common image formats..."
@@ -200,7 +198,7 @@
         exec = pkgs.writeShellApplication {
           name = "clean-images";
 
-          runtimeInputs = [ pkgs.coreutils ];
+          runtimeInputs = [pkgs.coreutils];
 
           text = ''
             echo "Cleaning image build artifacts..."

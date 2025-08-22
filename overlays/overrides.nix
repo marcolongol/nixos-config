@@ -1,4 +1,4 @@
-{ inputs, ... }: final: prev: {
+{inputs, ...}: final: prev: {
   catppuccin-sddm = prev.catppuccin-sddm.override {
     flavor = "mocha";
     font = "MesloLGS Nerd Font";

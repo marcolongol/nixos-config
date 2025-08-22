@@ -1,6 +1,11 @@
 # Live CD/Image profile
 # Configuration for live images, installation media, and cloud images
-{ lib, pkgs, config, ... }: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   # Live image specific configurations
   services = {
     # Disable cloud-init by default for installation media
@@ -45,7 +50,7 @@
     users.nixos = lib.mkDefault {
       isNormalUser = true;
       description = "NixOS Live User";
-      extraGroups = [ "wheel" "networkmanager" "users" ];
+      extraGroups = ["wheel" "networkmanager" "users"];
       password = "";
       hashedPassword = null;
     };
@@ -102,7 +107,7 @@
   # Security adjustments for live images
   security = {
     # Allow sudo without password for wheel group in live images
-    sudo = { wheelNeedsPassword = lib.mkDefault false; };
+    sudo = {wheelNeedsPassword = lib.mkDefault false;};
 
     # Allow empty passwords for live images
     pam.services.su.allowNullPassword = lib.mkDefault true;

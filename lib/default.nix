@@ -1,7 +1,6 @@
 # lib/default.nix
 # This file is the main entry point for the lib module.
-{ inputs, ... }:
-let
+{inputs, ...}: let
   # extend the nixpkgs lib with custom utilities
   lib = inputs.nixpkgs.lib.extend (final: prev: {
     myLib = import ./. {
@@ -47,7 +46,6 @@ let
   assetsDir = ../assets;
 
   # utilities and validations
-  utils = import ./utils.nix { inherit inputs lib; };
-  validations = import ./validations.nix { inherit lib; };
-
-in { inherit hmLib hosts users profiles assetsDir utils validations; }
+  utils = import ./utils.nix {inherit inputs lib;};
+  validations = import ./validations.nix {inherit lib;};
+in {inherit hmLib hosts users profiles assetsDir utils validations;}

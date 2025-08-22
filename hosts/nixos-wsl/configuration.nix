@@ -1,10 +1,11 @@
 # nixos-wsl Configuration
 # Host-specific configuration for nixos-wsl
-{ config
-, lib
-, pkgs
-, hostname
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  hostname,
+  ...
 }: {
   networking.hostName = hostname;
 

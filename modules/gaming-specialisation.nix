@@ -1,9 +1,10 @@
 # Gaming Specialisation Module
 # Provides a gaming-optimized boot option with Steam, performance tweaks, and relaxed security
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }: {
   options.gaming.specialisation.enable = lib.mkEnableOption "gaming specialisation";
 

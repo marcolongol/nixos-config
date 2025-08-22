@@ -1,11 +1,12 @@
 # Admin User Profile
 # System administration focused configuration
-{ pkgs
-, lib
-, inputs
-, userConfig
-, osConfig ? { }
-, ...
+{
+  pkgs,
+  lib,
+  inputs,
+  userConfig,
+  osConfig ? {},
+  ...
 }: {
   # Administrative packages (extends common packages)
   home.packages = with pkgs; [

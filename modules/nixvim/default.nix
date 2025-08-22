@@ -1,5 +1,5 @@
-{ inputs, ... }: {
-  imports = [ ./options.nix ./keybindings.nix ./plugins ];
+{inputs, ...}: {
+  imports = [./options.nix ./keybindings.nix ./plugins];
 
   enableMan = true;
 }

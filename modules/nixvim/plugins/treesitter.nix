@@ -7,7 +7,7 @@
         enable = true;
         additional_vim_regex_highlighting = true;
       };
-      indent = { enable = true; };
+      indent = {enable = true;};
       folding = true;
       nixGrammars = true;
       auto_install = true;
@@ -15,7 +15,7 @@
     };
   };
 
-  plugins.treesitter-context = { enable = true; };
+  plugins.treesitter-context = {enable = true;};
 
   plugins.treesitter-textobjects = {
     enable = true;

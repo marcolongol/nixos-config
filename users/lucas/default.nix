@@ -1,11 +1,12 @@
 # Lucas's Individual User Configuration
 # This file contains custom configurations specific to Lucas
 # It extends the base developer profile with personal preferences
-{ pkgs
-, lib
-, userConfig
-, osConfig ? { }
-, ...
+{
+  pkgs,
+  lib,
+  userConfig,
+  osConfig ? {},
+  ...
 }: {
   # Enable impermanence for home directory when persistence is enabled at system level
   home.persistence."/persist/home/${userConfig.name}" = lib.myLib.utils.mkHomePersistence {
@@ -25,7 +26,7 @@
       ".local/state/nvim"
       ".local/share/Steam"
     ];
-    files = [ ".zsh_history" ".local/share/zoxide/db.zo" ".kube/config" ".claude.json" ];
+    files = [".zsh_history" ".local/share/zoxide/db.zo" ".kube/config" ".claude.json"];
   };
 
   home.file = {
@@ -103,5 +104,5 @@
     TERMINAL = "alacritty";
   };
 
-  home.sessionPath = [ "$HOME/.local/bin" ];
+  home.sessionPath = ["$HOME/.local/bin"];
 }

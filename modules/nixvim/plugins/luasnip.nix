@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       enable_autosnippets = true;
-      update_events = [ "TextChanged" "TextChangedI" ];
+      update_events = ["TextChanged" "TextChangedI"];
     };
   };
 }

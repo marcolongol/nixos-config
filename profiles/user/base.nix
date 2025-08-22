@@ -1,11 +1,11 @@
-{ pkgs
-, lib
-, inputs
-, userConfig
-, osConfig ? { }
-, ...
-}:
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  userConfig,
+  osConfig ? {},
+  ...
+}: let
   nfsLinks = [
     "Documents"
     "Downloads"
@@ -14,9 +14,8 @@ let
     "K8s"
     "Shared"
   ];
-in
-{
-  imports = [ inputs.impermanence.homeManagerModules.impermanence ];
+in {
+  imports = [inputs.impermanence.homeManagerModules.impermanence];
 
   # Base user profile for all users
   home.username = lib.mkDefault userConfig.name;
@@ -26,7 +25,7 @@ in
   home.stateVersion = "25.05";
 
   # Activation Scripts
-  home.activation.nfsSymlinks = lib.myLib.hmLib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.nfsSymlinks = lib.myLib.hmLib.hm.dag.entryAfter ["writeBoundary"] ''
     for name in ${lib.concatStringsSep " " (map (x: ''"${x}"'') nfsLinks)}; do
       target="/mnt/$name"
       link="$HOME/$name"
@@ -72,7 +71,7 @@ in
   # Basic git configuration
   programs.git = {
     enable = lib.mkDefault true;
-    extraConfig = lib.mkDefault { init.defaultBranch = "main"; };
+    extraConfig = lib.mkDefault {init.defaultBranch = "main";};
   };
 
   # XDG directories

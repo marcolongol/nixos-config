@@ -3,7 +3,7 @@
     enable = true;
     enableLspFormat = true;
     settings = {
-      cmd = [ "nvim" ];
+      cmd = ["nvim"];
       debug = true;
       notify-format = "[null-ls] %s";
     };
@@ -37,12 +37,12 @@
         black = {
           enable = true;
           settings = {
-            extra_args = [ "--fast" ];
-            extra_filetypes = [ "tiltfile" ];
+            extra_args = ["--fast"];
+            extra_filetypes = ["tiltfile"];
           };
         };
       };
-      hover = { dictionary.enable = true; };
+      hover = {dictionary.enable = true;};
       completion = {
         luasnip.enable = true;
         spell.enable = true;

@@ -4,7 +4,7 @@
     settings = {
       size = 80;
       hideNumbers = true;
-      shadeFiletypes = [ "toggleterm" ];
+      shadeFiletypes = ["toggleterm"];
       direction = "vertical";
       closeOnExit = true;
       shell = "zsh";

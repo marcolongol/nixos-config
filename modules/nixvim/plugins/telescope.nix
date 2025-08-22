@@ -1,12 +1,12 @@
 {
   plugins.telescope = {
     enable = true;
-    extensions = { fzf-native.enable = true; };
+    extensions = {fzf-native.enable = true;};
     settings = {
       defaults = {
         prompt_prefix = " ";
         selection_caret = " ";
-        path_display = [ "truncate" ];
+        path_display = ["truncate"];
         sorting_strategy = "ascending";
         layout_strategy = "horizontal";
         layout_config = {
@@ -15,31 +15,30 @@
             preview_width = 0.55;
             results_width = 0.8;
           };
-          vertical = { mirror = false; };
+          vertical = {mirror = false;};
           width = 0.87;
           height = 0.8;
           preview_cutoff = 120;
         };
-        file_ignore_patterns =
-          [ "^.git/" "^.svn/" "^node_modules/" "^%.cache/" ];
+        file_ignore_patterns = ["^.git/" "^.svn/" "^node_modules/" "^%.cache/"];
         winblend = 0;
-        border = { };
-        borderchars = [ "─" "│" "─" "│" "╭" "╮" "╯" "╰" ];
+        border = {};
+        borderchars = ["─" "│" "─" "│" "╭" "╮" "╯" "╰"];
         color_devicons = true;
         use_less = true;
-        set_env = { COLORTERM = "truecolor"; };
+        set_env = {COLORTERM = "truecolor";};
       };
       pickers = {
         find_files = {
-          find_command = [ "fd" "--type" "f" "--strip-cwd-prefix" ];
+          find_command = ["fd" "--type" "f" "--strip-cwd-prefix"];
         };
         buffers = {
           show_all_buffers = true;
           sort_lastused = true;
           previewer = false;
           mappings = {
-            i = { "<c-d>" = "delete_buffer"; };
-            n = { "dd" = "delete_buffer"; };
+            i = {"<c-d>" = "delete_buffer";};
+            n = {"dd" = "delete_buffer";};
           };
         };
       };

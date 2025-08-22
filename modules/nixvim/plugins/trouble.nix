@@ -11,9 +11,11 @@
       };
     };
   };
-  keymaps = [{
-    mode = "n";
-    key = "<leader>xx";
-    action = "<cmd>Trouble diagnostics toggle<cr>";
-  }];
+  keymaps = [
+    {
+      mode = "n";
+      key = "<leader>xx";
+      action = "<cmd>Trouble diagnostics toggle<cr>";
+    }
+  ];
 }

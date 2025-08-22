@@ -1,8 +1,9 @@
 # Desktop environment and applications profile
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }: {
   # Desktop Applications
   environment.systemPackages = with pkgs; [
@@ -45,11 +46,11 @@
   # XDG Desktop Portal
   xdg.portal = {
     enable = lib.mkDefault true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
+    extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-hyprland];
   };
 
   # Environment Variables
-  environment.sessionVariables = { WLR_NO_HARDWARE_CURSORS = "1"; };
+  environment.sessionVariables = {WLR_NO_HARDWARE_CURSORS = "1";};
 
   # Services
   services = {
@@ -94,8 +95,8 @@
   ];
 
   fonts.fontconfig.defaultFonts = {
-    monospace = [ "MesloLGS Nerd Font" ];
-    sansSerif = [ "MesloLGS Nerd Font" ];
-    serif = [ "MesloLGS Nerd Font" ];
+    monospace = ["MesloLGS Nerd Font"];
+    sansSerif = ["MesloLGS Nerd Font"];
+    serif = ["MesloLGS Nerd Font"];
   };
 }

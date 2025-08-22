@@ -1,6 +1,6 @@
 # disko configuration for nixos-lt
 # This file defines declarative disk partitioning with impermanence support
-{ lib, ... }: {
+{lib, ...}: {
   # Disk partitioning configuration
   disko.devices = {
     disk = {
@@ -18,26 +18,24 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "defaults" "umask=0077" ];
+                mountOptions = ["defaults" "umask=0077"];
               };
             };
 
             # Swap partition
             swap = {
-              size =
-                "16G"; # 16GB swap for better performance and hibernation support
-              content = { type = "swap"; };
+              size = "16G"; # 16GB swap for better performance and hibernation support
+              content = {type = "swap";};
             };
 
             # Persistent storage partition
             persist = {
-              size =
-                "100%"; # Most space goes to persistent data where it's actually needed
+              size = "100%"; # Most space goes to persistent data where it's actually needed
               content = {
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/persist";
-                mountOptions = [ "defaults" "noatime" ];
+                mountOptions = ["defaults" "noatime"];
               };
             };
 
@@ -54,11 +52,11 @@
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = ["compress=zstd" "noatime"];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = ["compress=zstd" "noatime"];
                   };
                 };
               };

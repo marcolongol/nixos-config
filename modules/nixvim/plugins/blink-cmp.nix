@@ -16,10 +16,10 @@
           };
         };
       };
-      keymap = { preset = "enter"; };
-      signature = { enabled = true; };
+      keymap = {preset = "enter";};
+      signature = {enabled = true;};
       sources = {
-        default = [ "lsp" "path" "snippets" "buffer" "copilot" ];
+        default = ["lsp" "path" "snippets" "buffer" "copilot"];
         providers = {
           copilot = {
             async = true;
@@ -27,12 +27,12 @@
             name = "copilot";
             score_offset = 100;
           };
-          buffer = { score_offset = -10; };
-          lsp = { fallbacks = [ ]; };
+          buffer = {score_offset = -10;};
+          lsp = {fallbacks = [];};
         };
       };
     };
   };
 
-  plugins.blink-copilot = { enable = true; };
+  plugins.blink-copilot = {enable = true;};
 }

@@ -1,9 +1,10 @@
 # Live CD/Image Configuration
 # Minimal configuration for generating bootable images and cloud images
 # Most configuration is handled by the livecd profile
-{ lib
-, hostname
-, ...
+{
+  lib,
+  hostname,
+  ...
 }: {
   system.stateVersion = "25.11";
   networking.hostName = hostname;

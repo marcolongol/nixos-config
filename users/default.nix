@@ -1,10 +1,10 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
-}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
   inherit (lib.myLib.users) availableUsers usersPath;
   inherit (lib.myLib.profiles.user) availableUserProfiles userProfilesPath;
 
@@ -28,7 +28,7 @@ let
           You can create new profiles under ${userProfilesPath}.
           Available profiles: ${lib.concatStringsSep ", " availableUserProfiles}
         '';
-        default = [ "base" ];
+        default = ["base"];
       };
       extraGroups = lib.mkOption {
         type = lib.types.listOf lib.types.str;
@@ -36,7 +36,7 @@ let
           Additional groups to which the user should be added.
           This is useful for granting extra permissions or access.
         '';
-        default = [ ];
+        default = [];
       };
       initialPassword = lib.mkOption {
         type = lib.types.str;
@@ -57,12 +57,11 @@ let
       };
     };
   };
-in
-{
+in {
   options.myUsers = {
     enable = lib.mkOption {
       type = lib.types.listOf userType;
-      default = [ ];
+      default = [];
       description = ''
         List of users to be configured in the system.
         Each user can have multiple profiles and extra groups.
@@ -72,19 +71,19 @@ in
       example = [
         {
           name = "lucas";
-          profiles = [ "base" ];
-          extraGroups = [ "wheel" ];
+          profiles = ["base"];
+          extraGroups = ["wheel"];
         }
         {
           name = "alice";
-          profiles = [ "base" "developer" ];
-          extraGroups = [ "docker" ];
+          profiles = ["base" "developer"];
+          extraGroups = ["docker"];
         }
       ];
     };
   };
 
-  config = lib.mkIf (cfg.enable != [ ]) {
+  config = lib.mkIf (cfg.enable != []) {
     # system wide
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
@@ -123,12 +122,12 @@ in
               if profile != "base"
               then
                 import (userProfilesPath + "/${profile}.nix")
-                  {
-                    inherit pkgs lib inputs;
-                    inherit userConfig;
-                    osConfig = config;
-                  }
-              else { })
+                {
+                  inherit pkgs lib inputs;
+                  inherit userConfig;
+                  osConfig = config;
+                }
+              else {})
             userConfig.profiles))
 
           # Import individual user configuration if it exists

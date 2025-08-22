@@ -1,9 +1,11 @@
 # Security hardening and monitoring tools
 # Additional security measures for exposed systems
-
-{ lib, pkgs, config, ... }:
-
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     # Security monitoring tools
     fail2ban

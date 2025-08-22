@@ -1,8 +1,7 @@
 # nixos-generators format configurations
 # Ensures cloud-init is properly configured for different image types
-{ lib, ... }: {
-
-  imports = [ ];
+{lib, ...}: {
+  imports = [];
 
   # Override format configurations to ensure proper cloud-init settings
   formatConfigs = {

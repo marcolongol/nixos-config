@@ -1,16 +1,17 @@
 # nixos-lt Configuration
 # Host-specific configuration for nixos-lt
-{ config
-, lib
-, pkgs
-, hostname
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  hostname,
+  ...
 }: {
   networking.hostName = hostname;
 
   system.stateVersion = "25.05"; # Did you read the comment?
 
-  imports = [ ./hardware-configuration.nix ];
+  imports = [./hardware-configuration.nix];
 
   time.timeZone = "America/Los_Angeles";
 
@@ -69,7 +70,7 @@
   };
 
   # System-level impermanence configuration
-  environment.persistence."/persist" = lib.myLib.utils.mkSystemPersistence { };
+  environment.persistence."/persist" = lib.myLib.utils.mkSystemPersistence {};
 
   # Enable gaming specialisation for this host
   gaming.specialisation.enable = true;

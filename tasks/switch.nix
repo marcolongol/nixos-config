@@ -1,13 +1,10 @@
-{ ... }:
-
+{...}:
 # The SWITCH Task
-
 {
-  perSystem = { pkgs, ... }: {
+  perSystem = {pkgs, ...}: {
     mission-control.scripts = {
       "switch" = {
-        description =
-          "Switch the configuration on the current supported system or specified";
+        description = "Switch the configuration on the current supported system or specified";
         category = "System Management";
 
         exec = pkgs.writeShellApplication {

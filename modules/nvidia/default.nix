@@ -1,10 +1,13 @@
 # NVIDIA Graphics Module
 # Provides NVIDIA driver configuration with optional hybrid graphics support
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.hardware.nvidia-custom;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.hardware.nvidia-custom;
 in {
   options.hardware.nvidia-custom = {
     enable = mkEnableOption "Enable NVIDIA graphics drivers";
@@ -25,8 +28,7 @@ in {
       finegrained = mkOption {
         type = types.bool;
         default = false;
-        description =
-          "Enable fine-grained power management (RTX 30 series and newer)";
+        description = "Enable fine-grained power management (RTX 30 series and newer)";
       };
     };
 
@@ -38,7 +40,7 @@ in {
       };
 
       mode = mkOption {
-        type = types.enum [ "sync" "offload" "reverse-sync" ];
+        type = types.enum ["sync" "offload" "reverse-sync"];
         default = "offload";
         description = ''
           Prime mode:
@@ -94,8 +96,7 @@ in {
       forceCompositionPipeline = mkOption {
         type = types.bool;
         default = false;
-        description =
-          "Force composition pipeline (can help with screen tearing)";
+        description = "Force composition pipeline (can help with screen tearing)";
       };
 
       useGBM = mkOption {
@@ -140,7 +141,7 @@ in {
 
   config = mkIf cfg.enable {
     # Basic NVIDIA configuration
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = ["nvidia"];
 
     # Hardware configuration
     hardware = {
@@ -154,7 +155,7 @@ in {
               vaapiVdpau
               libvdpau-va-gl
             ])
-            (mkIf cfg.enableOpenCL [ ocl-icd opencl-headers ])
+            (mkIf cfg.enableOpenCL [ocl-icd opencl-headers])
           ];
       };
 
@@ -170,26 +171,27 @@ in {
         forceFullCompositionPipeline = cfg.settings.forceCompositionPipeline;
 
         # Prime configuration for hybrid graphics
-        prime = mkIf cfg.hybrid.enable {
-          sync.enable = cfg.hybrid.mode == "sync";
-          offload = {
-            enable = cfg.hybrid.mode == "offload";
-            enableOffloadCmd = cfg.hybrid.mode == "offload";
-          };
-          reverseSync.enable = cfg.hybrid.mode == "reverse-sync";
+        prime =
+          mkIf cfg.hybrid.enable {
+            sync.enable = cfg.hybrid.mode == "sync";
+            offload = {
+              enable = cfg.hybrid.mode == "offload";
+              enableOffloadCmd = cfg.hybrid.mode == "offload";
+            };
+            reverseSync.enable = cfg.hybrid.mode == "reverse-sync";
 
-          # Use new busId options if available, fall back to deprecated ones
-          nvidiaBusId = if cfg.hybrid.busId.nvidia != null then
-            cfg.hybrid.busId.nvidia
-          else
-            cfg.hybrid.nvidiaBusId;
+            # Use new busId options if available, fall back to deprecated ones
+            nvidiaBusId =
+              if cfg.hybrid.busId.nvidia != null
+              then cfg.hybrid.busId.nvidia
+              else cfg.hybrid.nvidiaBusId;
 
-          intelBusId = if cfg.hybrid.busId.intel != null then
-            cfg.hybrid.busId.intel
-          else
-            cfg.hybrid.intelBusId;
-        }
-        # Only set amdgpuBusId if it's actually configured
+            intelBusId =
+              if cfg.hybrid.busId.intel != null
+              then cfg.hybrid.busId.intel
+              else cfg.hybrid.intelBusId;
+          }
+          # Only set amdgpuBusId if it's actually configured
           // (lib.optionalAttrs (cfg.hybrid.busId.amd != null) {
             amdgpuBusId = cfg.hybrid.busId.amd;
           });
@@ -206,11 +208,10 @@ in {
         (mkIf (!cfg.hybrid.enable || cfg.hybrid.mode != "offload") {
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         })
-        (mkIf cfg.settings.useGBM { GBM_BACKEND = "nvidia-drm"; })
+        (mkIf cfg.settings.useGBM {GBM_BACKEND = "nvidia-drm";})
         (mkIf cfg.enableCUDA {
           CUDA_PATH = "${pkgs.cudatoolkit}";
-          LD_LIBRARY_PATH =
-            "${pkgs.cudatoolkit}/lib:${pkgs.cudatoolkit.lib}/lib";
+          LD_LIBRARY_PATH = "${pkgs.cudatoolkit}/lib:${pkgs.cudatoolkit.lib}/lib";
         })
       ];
 
@@ -224,9 +225,9 @@ in {
             glxinfo # For debugging OpenGL issues
           ]
           # CUDA packages
-          (mkIf cfg.enableCUDA [ cudatoolkit cudaPackages.cudnn ])
+          (mkIf cfg.enableCUDA [cudatoolkit cudaPackages.cudnn])
           # OpenCL packages
-          (mkIf cfg.enableOpenCL [ clinfo opencl-info ])
+          (mkIf cfg.enableOpenCL [clinfo opencl-info])
           # Vulkan packages
           (mkIf cfg.enableVulkan [
             vulkan-tools
@@ -237,26 +238,31 @@ in {
     };
 
     # Blacklist nouveau if enabled
-    boot.blacklistedKernelModules = mkIf cfg.blacklistNouveau [ "nouveau" ];
+    boot.blacklistedKernelModules = mkIf cfg.blacklistNouveau ["nouveau"];
 
     # Kernel parameters for better stability
-    boot.kernelParams = [ "nvidia-drm.modeset=1" ]
+    boot.kernelParams =
+      ["nvidia-drm.modeset=1"]
       ++ optionals cfg.settings.useGBM
-      [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
+      ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
 
     # Load NVIDIA modules early
-    boot.initrd.kernelModules =
-      [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+    boot.initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
 
     # Warnings for missing bus IDs in hybrid mode
-    warnings = optionals (cfg.hybrid.enable && cfg.hybrid.busId.nvidia == null
-      && cfg.hybrid.nvidiaBusId == null) [
+    warnings =
+      optionals (cfg.hybrid.enable
+        && cfg.hybrid.busId.nvidia == null
+        && cfg.hybrid.nvidiaBusId == null) [
         ''
           NVIDIA hybrid graphics enabled but no NVIDIA bus ID specified. Use 'lspci | grep -E "(VGA|3D)"' to find the correct bus ID.''
-      ] ++ optionals (cfg.hybrid.enable && cfg.hybrid.busId.intel == null
-        && cfg.hybrid.intelBusId == null && cfg.hybrid.busId.amd == null) [
-          ''
-            NVIDIA hybrid graphics enabled but no integrated GPU bus ID specified. Use 'lspci | grep -E "(VGA|3D)"' to find the correct bus ID.''
-        ];
+      ]
+      ++ optionals (cfg.hybrid.enable
+        && cfg.hybrid.busId.intel == null
+        && cfg.hybrid.intelBusId == null
+        && cfg.hybrid.busId.amd == null) [
+        ''
+          NVIDIA hybrid graphics enabled but no integrated GPU bus ID specified. Use 'lspci | grep -E "(VGA|3D)"' to find the correct bus ID.''
+      ];
   };
 }
