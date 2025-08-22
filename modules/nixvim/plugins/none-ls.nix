@@ -22,7 +22,6 @@
         alejandra.enable = true;
         stylua.enable = true;
         shfmt.enable = true;
-        nixpkgs_fmt.enable = true;
         google_java_format.enable = false;
         yamlfmt.enable = true;
         prettier = {
