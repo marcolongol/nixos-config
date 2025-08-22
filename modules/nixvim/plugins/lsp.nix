@@ -89,6 +89,7 @@
       ts_ls.enable = true;
       eslint.enable = true;
       pyright.enable = true;
+      ruff.enable = true;
       yamlls.enable = true;
       jsonls = {
         enable = true;

@@ -16,7 +16,6 @@
         statix.enable = true;
         deadnix.enable = true;
         pylint.enable = true;
-        checkstyle.enable = true;
         mypy.enable = true;
       };
       formatting = {
@@ -30,13 +29,17 @@
           enable = true;
           disableTsServerFormatter = true;
         };
+        sqlfluff.enable = true;
+        stylelint.enable = true;
+        isort = {
+          enable = true;
+        };
         black = {
           enable = true;
-          settings = ''
-            {
-              extra_args = { "--fast" },
-            }
-          '';
+          settings = {
+            extra_args = [ "--fast" ];
+            extra_filetypes = [ "tiltfile" ];
+          };
         };
       };
       hover = { dictionary.enable = true; };

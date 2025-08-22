@@ -44,11 +44,13 @@
         isort
         mypy
         pylint
+        pyright
         ruff
         pytest
         requests
         numpy
         pandas
+        pandas-stubs
         psutil
         types-psutil
       ]))
