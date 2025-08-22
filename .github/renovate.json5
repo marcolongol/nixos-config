@@ -3,12 +3,11 @@
   "extends": [
     "config:recommended",
     ":dependencyDashboard",
-    ":semanticCommits",
-    ":automergeDigest",
-    ":automergeBranch"
+    ":semanticCommits"
   ],
-  "assignAutomerge": true,
-  "platformAutomerge": true,
+  // Only auto-merge patch/minor, require manual review for major
+  "automerge": false,
+  "platformAutomerge": false,
   
   // Enable Nix support for flake.lock updates
   "nix": {
@@ -24,22 +23,23 @@
   
   "packageRules": [
     {
-      // Auto-merge Nix digest updates (hash changes)
+      // Auto-merge Nix digest updates (hash changes) 
       "matchManagers": ["nix"],
       "matchUpdateTypes": ["digest"],
-      "automerge": true
+      "automerge": true,
+      "platformAutomerge": true
     },
     {
-      // Auto-merge Nix patch and minor updates
-      "matchManagers": ["nix"],
+      // Auto-merge patch and minor updates only
       "matchUpdateTypes": ["patch", "minor"],
-      "automerge": true
+      "automerge": true,
+      "platformAutomerge": true
     },
     {
-      // Auto-merge GitHub Actions patch and minor updates
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["patch", "minor"],
-      "automerge": true
+      // Major updates require manual review
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["dependencies", "major-update"]
     }
   ],
   
