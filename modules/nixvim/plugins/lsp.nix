@@ -75,6 +75,11 @@
     servers = {
       nixd.enable = true;
       lua_ls.enable = true;
+      statix.enable = true;
+      starlark_rust = {
+        enable = true;
+        filetypes = [ "tiltfile" ];
+      };
       rust_analyzer = {
         enable = true;
         installCargo = false;
