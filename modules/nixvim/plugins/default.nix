@@ -20,6 +20,9 @@
     # copilot-vim.enable = true;
     # copilot-chat.enable = true;
 
+    # cmp
+    cmp.enable = true;
+
     # Claude
     claude-code.enable = true;
 
