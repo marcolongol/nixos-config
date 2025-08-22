@@ -47,7 +47,7 @@ in
 
   # Essential packages for all users
   home.packages = with pkgs; [
-    # ...
+    todoman
   ];
 
   programs.home-manager.enable = lib.mkDefault true;
