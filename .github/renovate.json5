@@ -1,0 +1,56 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":automergeDigest",
+    ":automergeBranch"
+  ],
+  "assignAutomerge": true,
+  "platformAutomerge": true,
+  
+  // Enable Nix support for flake.lock updates
+  "nix": {
+    "enabled": true
+  },
+  
+  // Automatically update flake.lock weekly
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on monday"]
+  },
+  
+  "packageRules": [
+    {
+      // Auto-merge Nix digest updates (hash changes)
+      "matchManagers": ["nix"],
+      "matchUpdateTypes": ["digest"],
+      "automerge": true
+    },
+    {
+      // Auto-merge Nix patch and minor updates
+      "matchManagers": ["nix"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+    {
+      // Auto-merge GitHub Actions patch and minor updates
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    }
+  ],
+  
+  // Run twice per week
+  "schedule": [
+    "before 6am on monday",
+    "before 6am on thursday"
+  ],
+  
+  "timezone": "America/Los_Angeles",
+  "labels": ["dependencies"],
+  "branchPrefix": "renovate/",
+  "platformCommit": true
+}
