@@ -35,6 +35,9 @@
     # Status line
     lualine.enable = true;
 
+    # Todo Comments
+    todo-comments.enable = true;
+
     # Git integration
     gitsigns.enable = true;
 
