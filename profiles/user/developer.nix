@@ -57,6 +57,45 @@
       ]))
   ];
 
+  # Extended git configuration
+  programs.git = {
+    delta.enable = true;
+    extraConfig = {
+      pull.rebase = true;
+      push.autoSetupRemote = true;
+    };
+  };
+
+  # Direnv for project environments
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  # Starship prompt
+  programs.starship = {
+    enable = true;
+    settings = {
+      format = "$all$character";
+      right_format = "$time";
+
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
+
+      time = {
+        disabled = false;
+        format = "[$time](dimmed white)";
+      };
+
+      directory = {
+        truncation_length = 3;
+        truncate_to_repo = true;
+      };
+    };
+  };
+
   # Extended shell configuration for developers
   programs.zsh = {
     enableCompletion = true;
@@ -107,46 +146,12 @@
       zstyle ':completion:*' list-colors \
         'di=01;34:ln=01;36:so=01;35:pi=40;33:ex=01;32:bd=40;33;01:cd=40;33;01:su=37;41:sg=30;43:tw=30;42:ow=34;42'
       zstyle ':completion:*' menu no
+
+      # create/attach tmux session if not already inside one
+      if [ -z "$TMUX" ] && command -v tmux >/dev/null 2>&1; then
+          tmux attach -t dev || tmux new -s dev
+      fi
     '';
-  };
-
-  # Extended git configuration
-  programs.git = {
-    delta.enable = true;
-    extraConfig = {
-      pull.rebase = true;
-      push.autoSetupRemote = true;
-    };
-  };
-
-  # Direnv for project environments
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
-
-  # Starship prompt
-  programs.starship = {
-    enable = true;
-    settings = {
-      format = "$all$character";
-      right_format = "$time";
-
-      character = {
-        success_symbol = "[➜](bold green)";
-        error_symbol = "[➜](bold red)";
-      };
-
-      time = {
-        disabled = false;
-        format = "[$time](dimmed white)";
-      };
-
-      directory = {
-        truncation_length = 3;
-        truncate_to_repo = true;
-      };
-    };
   };
 
   # Tmux configuration
