@@ -83,26 +83,55 @@
       # Steam hardware support
       hardware.steam-hardware.enable = true;
 
-      # Gaming-optimized power management (override TLP for gaming)
-      powerManagement.cpuFreqGovernor = lib.mkForce "performance";
+      # Gaming-specific services
+      services = {
+        # IRQ balancing for better multi-core CPU utilization and thermal distribution
+        irqbalance.enable = true;
 
-      services.tlp = {
+        # Low-latency audio for gaming
+        pipewire = {
+          extraConfig.pipewire."92-low-latency" = {
+            context.properties = {
+              default.clock.rate = 48000;
+              default.clock.quantum = 32; # Lower latency
+              default.clock.min-quantum = 32;
+              default.clock.max-quantum = 32;
+            };
+          };
+        };
+      };
+
+      # Real-time audio support for gaming
+      security.rtkit.enable = true;
+
+      # NVIDIA optimizations for gaming
+      hardware.nvidia-custom = {
+        # Switch to sync mode for gaming - uses NVIDIA GPU full time for better performance
+        hybrid.mode = lib.mkForce "sync";
+        
+        # Disable fine-grained power management in sync mode (not compatible)
+        powerManagement.finegrained = lib.mkForce false;
+        
+        # Enable CUDA for better game compatibility and GPU compute
+        enableCUDA = lib.mkForce true;
+      };
+
+      # Gaming-optimized power management (auto-cpufreq handles CPU scaling)
+      # Override auto-cpufreq for maximum gaming performance
+      services.auto-cpufreq = {
         settings = {
-          # Override TLP settings for gaming performance
-          CPU_SCALING_GOVERNOR_ON_AC = lib.mkForce "performance";
-          CPU_SCALING_GOVERNOR_ON_BAT = lib.mkForce "performance";
-          CPU_ENERGY_PERF_POLICY_ON_AC = lib.mkForce "performance";
-          CPU_ENERGY_PERF_POLICY_ON_BAT = lib.mkForce "balance_performance";
-          CPU_MIN_PERF_ON_AC = lib.mkForce 50;
-          CPU_MAX_PERF_ON_AC = lib.mkForce 100;
-          CPU_MIN_PERF_ON_BAT = lib.mkForce 30;
-          CPU_MAX_PERF_ON_BAT = lib.mkForce 80;
-
-          # Disable power saving features that can impact gaming
-          WIFI_PWR_ON_AC = lib.mkForce "off";
-          WIFI_PWR_ON_BAT = lib.mkForce "off";
-          RUNTIME_PM_ON_AC = lib.mkForce "on";
-          RUNTIME_PM_ON_BAT = lib.mkForce "on";
+          charger = {
+            governor = lib.mkForce "performance";
+            scaling_min_freq = lib.mkForce 2500000;
+            scaling_max_freq = lib.mkForce 4500000;
+            turbo = lib.mkForce "auto";
+          };
+          battery = {
+            governor = lib.mkForce "performance"; # Keep performance even on battery for gaming
+            scaling_min_freq = lib.mkForce 2000000;
+            scaling_max_freq = lib.mkForce 4000000;
+            turbo = lib.mkForce "auto";
+          };
         };
       };
 
@@ -118,6 +147,27 @@
 
         # Increase memory map areas for games (required by some modern games like CS2, Apex Legends)
         "vm.max_map_count" = 2147483642;
+
+        # Memory management optimizations for gaming
+        "vm.swappiness" = 1; # Minimize swap usage for better performance
+        "vm.dirty_ratio" = 15; # Limit dirty pages for consistent performance
+        "vm.dirty_background_ratio" = 5; # Start background writeback earlier
+        "vm.vfs_cache_pressure" = 50; # Keep file system cache longer
+        "vm.page-cluster" = 0; # Disable page clustering for SSD
+
+        # CPU scheduler optimizations for gaming workloads
+        "kernel.sched_min_granularity_ns" = 10000000; # 10ms - better for interactive tasks
+        "kernel.sched_wakeup_granularity_ns" = 15000000; # 15ms - reduce context switching overhead
+
+        # Disable watchdog for performance
+        "kernel.nmi_watchdog" = 0;
+
+        # Audio latency optimizations for gaming
+        "dev.hda.intel.power_save" = 0; # Disable audio power saving
+
+        # I/O optimizations for gaming (reduces CPU load and heat)
+        "vm.dirty_expire_centisecs" = 500; # Write dirty pages more frequently
+        "vm.dirty_writeback_centisecs" = 100; # Background writeback every 1s
 
         # Gaming network optimizations
         "net.core.rmem_default" = 262144;

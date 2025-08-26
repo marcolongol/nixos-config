@@ -28,7 +28,7 @@
     thermald.enable = true;
 
     # Better laptop power management
-    power-profiles-daemon.enable = false; # Disable if using TLP
+    power-profiles-daemon.enable = false; # Disable if using auto-cpufreq
 
     # System76 Scheduler for better CPU scheduling on System76 hardware
     system76-scheduler.enable = true;
@@ -36,35 +36,22 @@
     # upower for battery management
     upower.enable = true;
 
-    tlp = {
+    # Auto CPU frequency scaling
+    auto-cpufreq = {
       enable = true;
-
       settings = {
-        # CPU Scaling Governor
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-        # CPU Energy Performance Policy
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-
-        # CPU Performance Scaling
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 20;
-
-        # WiFi Power Management
-        WIFI_PWR_ON_AC = "off";
-        WIFI_PWR_ON_BAT = "on";
-
-        # Runtime Power Management
-        RUNTIME_PM_ON_AC = "on";
-        RUNTIME_PM_ON_BAT = "auto";
-
-        # Battery Care (extends battery lifespan)
-        START_CHARGE_THRESH_BAT0 = 40;
-        STOP_CHARGE_THRESH_BAT0 = 80;
+        charger = {
+          governor = "performance";
+          scaling_min_freq = 2000000;
+          scaling_max_freq = 4000000;
+          turbo = "auto";
+        };
+        battery = {
+          governor = "powersave";
+          scaling_min_freq = 1000000;
+          scaling_max_freq = 3000000;
+          turbo = "auto";
+        };
       };
     };
   };

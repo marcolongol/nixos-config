@@ -211,7 +211,7 @@ in {
         (mkIf cfg.settings.useGBM {GBM_BACKEND = "nvidia-drm";})
         (mkIf cfg.enableCUDA {
           CUDA_PATH = "${pkgs.cudatoolkit}";
-          LD_LIBRARY_PATH = "${pkgs.cudatoolkit}/lib:${pkgs.cudatoolkit.lib}/lib";
+          LD_LIBRARY_PATH = lib.mkForce "${pkgs.cudatoolkit}/lib:${pkgs.cudatoolkit.lib}/lib";
         })
       ];
 
