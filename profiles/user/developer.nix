@@ -155,6 +155,13 @@
     terminal = "screen-256color";
     keyMode = "vi";
     customPaneNavigationAndResize = true;
+    plugins = with pkgs.tmuxPlugins; [
+      resurrect
+      continuum
+      sensible
+      prefix-highlight
+      tmux-powerline
+    ];
     extraConfig = ''
       # Mouse support
       set -g mouse on
@@ -168,6 +175,12 @@
       bind -n C-j select-pane -D
       bind -n C-k select-pane -U
       bind -n C-l select-pane -R
+
+      # Plugin Configuration
+      set -g @resurrect-dir '~/.config/tmux/resurrect'
+      set -g @resurrect-capture-pane-contents 'on'
+      set -g @continuum-restore 'on'
+      set -g @continuum-save-interval '15'
     '';
   };
 }
