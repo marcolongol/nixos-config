@@ -15,6 +15,7 @@
     directories = [
       ".config/1Password"
       ".config/remmina"
+      ".config/tmux/resurrect"
       ".local/share/remmina"
       ".config/github-copilot"
       ".claude"
