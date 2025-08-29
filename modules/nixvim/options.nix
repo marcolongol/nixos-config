@@ -61,21 +61,10 @@
     autoread = true;
   };
 
-  colorschemes.oxocarbon.enable = true;
+  # colorschemes.oxocarbon.enable = true;
+  colorschemes.monokai-pro.enable = true;
 
   extraConfigLua = ''
-    -- Set the colorscheme
-    vim.cmd [[
-      hi Normal guibg=none
-      hi Normal guibg=none
-      hi NormalNC guibg=none
-      hi NormalFloat guibg=none
-      hi FloatBorder guibg=none
-      hi Pmenu guibg=none
-      hi PmenuSel guibg=none
-      hi NvimTreeNormal guibg=none
-      hi Comment guifg=#5c6370 gui=italic
-    ]]
 
     -- Show eol character based on file format
     vim.api.nvim_create_autocmd({"BufReadPost", "BufNewFile"}, {
