@@ -165,7 +165,6 @@
       continuum
       sensible
       prefix-highlight
-      tmux-powerline
     ];
     extraConfig = ''
       set -g base-index 1
