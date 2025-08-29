@@ -1,6 +1,7 @@
 {
   imports = [
-    ./nvim-tree.nix
+    # ./nvim-tree.nix
+    ./neo-tree.nix
     ./telescope.nix
     ./lsp.nix
     ./schemastore.nix
