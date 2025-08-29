@@ -28,21 +28,21 @@
         lspBufAction = "hover";
       }
       {
+        key = "[d";
         action =
           lib.nixvim.mkRaw
           "function() vim.diagnostic.jump({ count=-1, float=true }) end";
-        key = "[d";
       }
       {
+        key = "]d";
         action =
           lib.nixvim.mkRaw
           "function() vim.diagnostic.jump({ count=1, float=true }) end";
-        key = "]d";
       }
       {
+        key = "gd";
         action =
           lib.nixvim.mkRaw "require('telescope.builtin').lsp_definitions";
-        key = "gd";
       }
     ];
   };
