@@ -41,6 +41,7 @@
 
     # Git integration
     gitsigns.enable = true;
+    gitignore.enable = true;
 
     # Auto pairs
     nvim-autopairs.enable = true;
