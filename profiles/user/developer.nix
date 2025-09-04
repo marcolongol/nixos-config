@@ -165,6 +165,7 @@
       continuum
       sensible
       prefix-highlight
+      vim-tmux-navigator
     ];
     extraConfig = ''
       set -g base-index 1
@@ -177,17 +178,11 @@
       set -g status-fg colour137
 
       # Window navigation
-      bind -n M-h select-pane -L
-      bind -n M-j select-pane -D
-      bind -n M-k select-pane -U
-      bind -n M-l select-pane -R
-
       bind -n M-0 select-window -t 0
       bind -n M-1 select-window -t 1
       bind -n M-2 select-window -t 2
       bind -n M-3 select-window -t 3
       bind -n M-4 select-window -t 4
-
 
       # Plugin Configuration
       set -g @resurrect-dir '~/.config/tmux/resurrect'

@@ -61,6 +61,9 @@
     # Gitblame
     gitblame.enable = true;
 
+    # Tmux-Navigator
+    tmux-navigator.enable = true;
+
     # Nvim-notify
     notify = {
       enable = true;
