@@ -7,5 +7,6 @@
         module = nixvimModule;
         pkgs = final;
       };
+    nixievim = inputs.nixievim.packages."${final.stdenv.hostPlatform.system}".default;
   };
 }

@@ -35,7 +35,7 @@
     lynx
 
     # Custom packages
-    custom.nixvim
+    custom.nixievim
 
     # Programming Languages
     (python3.withPackages (ps:
@@ -51,7 +51,6 @@
         requests
         numpy
         pandas
-        pandas-stubs
         psutil
         types-psutil
       ]))

@@ -35,6 +35,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nixievim - My personal Neovim configuration
+    # https://github.com/marcolongol/nixievim
+    nixievim = {
+      url = "github:marcolongol/nixievim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nixos-generators - Generate images for multiple formats
     # https://github.com/nix-community/nixos-generators
     nixos-generators = {
