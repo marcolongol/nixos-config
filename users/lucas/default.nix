@@ -63,6 +63,7 @@
     freecad
     qgis
     gdal
+    spotify
   ];
 
   # Personal git configuration
