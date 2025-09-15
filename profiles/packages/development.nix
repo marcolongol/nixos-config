@@ -23,9 +23,10 @@
     gcc
     gnumake
 
-    # Containers
+    # Containers and virtualization
     docker
     docker-compose
+    qemu_kvm
 
     # Terminal tools
     alacritty
@@ -55,7 +56,9 @@
   ];
 
   # Development services
+  programs.virt-manager.enable = lib.mkDefault true;
   virtualisation.docker.enable = lib.mkDefault true;
+  virtualisation.libvirtd.enable = lib.mkDefault true;
 
   # Environment management
   programs.direnv.enable = lib.mkDefault true;
